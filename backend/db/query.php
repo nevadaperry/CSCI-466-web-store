@@ -1,6 +1,6 @@
 <?php
 
-function queryDb($query, $args) {
+function queryDb($query, $args = []) {
 	$host = getenv('MYSQL_HOST') ?? "courses";
 	$dbname = getenv('MYSQL_DATABASE') ?? "z1976298";
 	$username = getenv('MYSQL_USER') ?? "z1976298";

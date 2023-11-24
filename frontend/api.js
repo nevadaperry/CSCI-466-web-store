@@ -8,3 +8,8 @@ const api = {
 		url: `${apiUrl}/`,
 	})).data,
 };
+
+async function makeRequestAndLog() {
+	const response = await api.getRoot();
+	console.log(`response: ${response}`);
+}
