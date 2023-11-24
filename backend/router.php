@@ -1,16 +1,18 @@
 <?php
 
-include "db/product.php";
+include "resource/product.php";
 
 header('Access-Control-Allow-Origin: *');
 
 $method = $_SERVER['REQUEST_METHOD'];
 $uri = $_SERVER['REQUEST_URI'];
 
-switch ($method . ' ' . $uri) {
+switch ("{$method} {$uri}") {
 case 'GET /':
-	$abcd = listProducts();
-	print json_encode($abcd);
+	print 'You\'ve reached web-store\'s backend API. To see the route list, check api.js on the frontend.';
+	break;
+case 'GET /products':
+	print json_encode(listProducts());
 	break;
 case 'GET /smoothie':
 	print 'Here is a smoothie';

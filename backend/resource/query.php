@@ -15,7 +15,6 @@ function queryDb($query, $args = []) {
 	$statement = $pdo->prepare($query);
 	$statement->execute($args);
 	$rows = $statement->fetchAll(PDO::FETCH_CLASS);
-	var_export($rows);
 	return $rows;
 }
 
