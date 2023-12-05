@@ -19,13 +19,13 @@ const api = {
 
 // https://stackoverflow.com/a/62475924/15295209
 window.onunhandledrejection = event => {
-	document.insertAdjacentHTML(
+	document.body.insertAdjacentHTML(
 		'afterbegin',
 		`Unhandled Promise rejection: ${event.reason}`,
 	);
 };
 window.onerror = (message, source, lineNumber, colno, error) => {
-	document.insertAdjacentHTML(
+	document.body.insertAdjacentHTML(
 		'afterbegin',
 		`Unhandled error: ${error.stack}`,
 	);
