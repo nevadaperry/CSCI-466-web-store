@@ -7,9 +7,12 @@ const api = {
 		method: 'GET',
 		url: `${apiUrl}/`,
 	})).data,
+	getProducts: async () => (await axios({
+		method: 'GET',
+		url: `${apiUrl}/products`,
+	})).data,
+	getOrders: async () => (await axios({
+		method: 'GET',
+		url: `${apiUrl}/orders`,
+	})).data,
 };
-
-async function makeRequestAndLog() {
-	const response = await api.getRoot();
-	console.log(`response: ${response}`);
-}
