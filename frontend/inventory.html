@@ -5,12 +5,14 @@
 	<link rel="stylesheet" href="styles.css">
 	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 	<script src="api.js"></script>
+	<script src="api.js"></script>
 	<script>
 		(async () => {
 			const products = await api.getProducts();
 			for (const product of products) {
-				document.getElementById('products').insertAdjacentHTML(`
-					<tr>
+				document.getElementById('products').insertAdjacentHTML(
+					'beforeend',
+					`<tr>
 						<td>
 							<input
 								type="radio"
@@ -22,15 +24,10 @@
 						<td>${product.name}</td>
 						<td>${product.price}</td>
 						<td>${product.stock}</td>
-					</tr>';
-				`);
+					</tr>`
+				);
 			}
-			const loadingPlaceholders = document.getElementsByClassName(
-				'loading-placeholder'
-			);
-			for (const placeholder of loadingPlaceholders) {
-				placeholder.classList.add('done-loading');
-			}
+			removePlaceholders();
 		})();
 	</script>
 </head>
@@ -38,7 +35,7 @@
 	<noscript>JavaScript must be enabled.</noscript>
 	<form id="Inventory" method="post" action="details.php">
 		<br><label>Select a product for more information.</label><br>
-		<table id="products" border="1"></table>
+		<table id="products"></table>
 			<tr><th> Part Name </th><th> Price </th><th> Number in stock </th></tr>
 			<div class="loading-placeholder">Loading...</div>
 		</table><br>
