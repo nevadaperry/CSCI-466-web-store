@@ -1,6 +1,7 @@
 <?php
 
 include "resource/product.php";
+include "resource/order.php";
 
 header('Access-Control-Allow-Origin: *');
 
@@ -13,6 +14,9 @@ case 'GET /':
 	break;
 case 'GET /products':
 	print json_encode(listProducts());
+	break;
+case 'GET /orders':
+	print json_encode(listOrders());
 	break;
 case 'GET /smoothie':
 	print 'Here is a smoothie';

@@ -1,3 +1,11 @@
+CREATE TABLE customer (
+	id bigint PRIMARY KEY AUTO_INCREMENT,
+	name text NOT NULL,
+	email varchar(255) NOT NULL,
+	CONSTRAINT unique_email UNIQUE (email)
+);
+CREATE INDEX customer_email ON customer (email);
+
 CREATE TABLE product (
 	id bigint PRIMARY KEY AUTO_INCREMENT,
 	name text NOT NULL,
@@ -18,8 +26,13 @@ CREATE TABLE `order` (
 	tracking_number text,
 	placed_at timestamp NOT NULL DEFAULT now(),
 	shipped_at timestamp,
-	CONSTRAINT tracking_number_includes_timestamp CHECK (tracking_number XOR shipped_at = 0)
+	CONSTRAINT tracking_number_includes_timestamp CHECK (
+		(tracking_number IS NOT NULL AND shipped_at IS NOT NULL)
+		OR (tracking_number IS NULL AND shipped_at IS NULL)
+	)
+	customer_id bigint NOT NULL REFERENCES customer (id)
 );
+CREATE INDEX order_customer_id ON order (customer_id);
 
 CREATE TABLE order_line_item (
 	id bigint PRIMARY KEY AUTO_INCREMENT,
