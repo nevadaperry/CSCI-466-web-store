@@ -1,6 +1,6 @@
 <?php
 
-include "query.php";
+include_once "query.php";
 
 function listOrders() {
 	return queryDb("

@@ -1,7 +1,7 @@
 <?php
 
-include "resource/product.php";
-include "resource/order.php";
+include_once "resource/product.php";
+include_once "resource/order.php";
 
 header('Access-Control-Allow-Origin: *');
 
