@@ -34,8 +34,13 @@
 	<noscript>JavaScript must be enabled.</noscript>
 	<form id="Inventory" method="post" action="details.php">
 		<br><label>Select a product for more information.</label><br>
-		<table id="products"></table>
-			<tr><th> Part Name </th><th> Price </th><th> Number in stock </th></tr>
+		<table id="products">
+			<tr>
+				<th></th>
+				<th>Part Name</th>
+				<th>Price</th>
+				<th>Number in stock</th>
+			</tr>
 			<div class="loading-placeholder">Loading...</div>
 		</table><br>
 		<input type="submit" value="Confirm" form="Inventory">
