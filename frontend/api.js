@@ -1,5 +1,7 @@
 const apiUrl = (window.location.host === 'students.cs.niu.edu')
-	? 'https://students.cs.niu.edu/~z1976298/router.php'
+	// Todo: Restore and fix incompatibilities with university mariadb server
+	? //'https://students.cs.niu.edu/~z1976298/router.php'
+	'https://web-store-backend-hzjh.onrender.com'
 	: 'https://web-store-backend-hzjh.onrender.com';
 
 const api = {
