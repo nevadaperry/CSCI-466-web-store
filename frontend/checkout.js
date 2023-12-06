@@ -35,6 +35,7 @@ function getInput(elementId) {
 
 async function placeOrder() {
 	const order = {
+		email: localStorage.getItem('email') ?? 'NOT LOGGED IN',
 		shipping_address: getInput('shipping-address'),
 		name_on_card: getInput('name-on-card'),
 		card_number: getInput('card-number'),

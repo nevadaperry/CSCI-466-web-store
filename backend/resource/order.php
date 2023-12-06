@@ -37,6 +37,7 @@ function list_orders() {
 }
 
 function post_order($order) {
+	return json_encode($order);
 	return query_db("
 		INSERT INTO customer (email) VALUES (
 			?

@@ -1,6 +1,5 @@
 CREATE TABLE customer (
 	id bigint PRIMARY KEY AUTO_INCREMENT,
-	name text NOT NULL,
 	email varchar(255) NOT NULL,
 	CONSTRAINT unique_email UNIQUE (email)
 );
