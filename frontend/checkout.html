@@ -1,0 +1,38 @@
+<html lang="en">
+<head>
+	<title>Shopping cart</title>
+	<meta charset="UTF-8" />
+	<link rel="stylesheet" href="styles.css">
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+	<script src="api.js"></script>
+	<script defer src="checkout.js"></script>
+</head>
+<body>
+	<noscript>JavaScript must be enabled.</noscript>
+	<h1>Shopping cart</h1>
+	<label for="cart-items">Contents</label>
+	<table id="cart-items">
+		<tr>
+			<th>Part name</th>
+			<th>Price</th>
+			<th>Quantity selected</th>
+		</tr>
+		<span id="cart-items-placeholder">Loading...</span>
+	</table>
+	<form onsubmit="void(0); return false" class="right-center">
+		<label for="card-number">Card number</label>
+		<input type="text" id="card-number">
+		<br>
+		<label for="card-number">Card expiration date</label>
+		<input type="text" id="card-exp-date" placeholder="MM/YY">
+		<br>
+		<label for="card-number">Card security code</label>
+		<input type="text" id="card-cvv">
+		<br>
+		<label for="card-number">Zipcode on billing address</label>
+		<input type="text" id="card-zipcode">
+		<br>
+		<button>Submit</button>
+	</form>
+</body>
+</html>

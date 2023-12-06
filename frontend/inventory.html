@@ -11,18 +11,15 @@
 <body>
 	<noscript>JavaScript must be enabled.</noscript>
 	<h1>Inventory management view</h1>
-	<form method="get" action="details.html">
-		<label>Select a product for more information.</label>
-		<table id="products">
-			<tr>
-				<th>Part name</th>
-				<th>Price</th>
-				<th>Number in stock</th>
-			</tr>
-			<span id="products-placeholder">Loading...</span>
-		</table>
-		<input type="submit" value="Confirm">
-	</form>
+	<label for="products">Select a product for more information.</label>
+	<table id="products">
+		<tr>
+			<th>Part name</th>
+			<th>Price</th>
+			<th>Number in stock</th>
+		</tr>
+		<span id="products-placeholder">Loading...</span>
+	</table>
 	<div id="details-modal" class="modal">
 		<div class="modal-content">
 			<span id="modal-content-placeholder">Loading...</span>

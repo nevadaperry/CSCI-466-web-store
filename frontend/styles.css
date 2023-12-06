@@ -8,16 +8,31 @@
 
 .clicky {
 	cursor: pointer;
-	background-color: #fff;
 }
 .clicky:hover {
-	background-color: rgb(255, 241, 194);
+	background-color: rgb(25, 85, 25);
+}
+
+.right-center {
+	text-align: right;
+	width: max-content;
+	margin: auto;
 }
 
 body {
+	max-width: max-content;
+	margin: auto;
 	font-family: sans-serif;
+	background-color: #222;
+	color: #eee;
 }
 
 table, table th, table td {
-	border: 1px solid #333;
+	border-collapse: collapse;
+	border: 1px solid #aaa;
+	padding: 4px;
+}
+
+a:link, a:visited {
+	color: rgb(0, 197, 0);
 }
