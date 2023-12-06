@@ -30,7 +30,8 @@ else if ("{$method} {$uri}" == 'GET /orders') {
 }
 else if ("{$method} {$uri}" == 'POST /orders') {
 	$order = file_get_contents('php://input');
-	print json_encode(post_order(json_decode($order)));
+	print gettype($order) . 'hello' . $order;
+	//print json_encode(post_order(json_decode($order)));
 }
 else if ("{$method} {$uri}" == 'GET /smoothie') {
 	print 'Here is a smoothie';
