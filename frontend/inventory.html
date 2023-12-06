@@ -19,29 +19,34 @@
 <body>
 <!-- Top of page header-->
 <div class="navbar">
-	<a href="index.html">Storefront</a>
+	<a href="index.html"><h2 class="logo">Saks 108th Avenue</h2></a>
 	<a href="inventory.html">Inventory</a>
 
 	<div class="navbar-right">
-		<a href="cart.html"><img src="img/shopping-cart-light.png"></a>
+		<a href="cart.html">
+			<span class="vert-top">Cart</span>
+			<img src="img/shopping-cart-light.png">
+		</a>
 		<span id="login-status" class="sub-header">Loading login status</span>
 	</div>
 </div>
 
 <div class="content">
 	<noscript>JavaScript must be enabled.</noscript>
-	<h1>Inventory management view</h1>
+	<h2>Inventory management view</h2>
 	<p></p>
 	<label for="products">Select a product for more information.</label>
 	<p></p>
-	<table id="products" class="banded-table">
-		<tr>
-			<th>Part name</th>
-			<th>Price</th>
-			<th>Number in stock</th>
-		</tr>
-		<span id="products-placeholder">Loading...</span>
-	</table>
+	<div class="scrollable">
+		<table id="products" class="banded-table">
+			<tr>
+				<th>Part name</th>
+				<th>Price</th>
+				<th>Number in stock</th>
+			</tr>
+			<span id="products-placeholder">Loading...</span>
+		</table>
+	</div>
 	<div id="details-modal" class="modal">
 		<div class="modal-content">
 			<span id="modal-content-placeholder">Loading...</span>

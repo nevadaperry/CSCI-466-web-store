@@ -26,7 +26,7 @@ async function openModal(productId) {
 	modalLoadedContent.innerHTML = `
 		<div><h2>${productDetails.name}</h2></div>
 		<div>
-			<a href="details.html?productId=${productId}" class="sub-header">
+			<a href="index.html?productId=${productId}" class="sub-header">
 				View customer-facing page for this product
 			</a>
 		</div>
@@ -37,7 +37,7 @@ async function openModal(productId) {
 		<form onsubmit="updateStock(${productId}); return false">
 			<input type="text" id="new-stock" placeholder="Change qty...">
 			<label for="new-stock"></label>
-			<input type="submit" value="Update">
+			<input type="submit" value="Update stock">
 		</form>
 		<br>
 		<div>${productDetails.description}</div>

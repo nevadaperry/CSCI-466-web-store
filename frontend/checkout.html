@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>Shopping Cart</title>
+	<title>Checkout</title>
 
 	<!-- CSS link -->
 	<link rel="stylesheet" href="styles.css" />
@@ -18,28 +18,32 @@
 <body>
 <!-- Top of page header-->
 <div class="navbar">
-	<a href="index.html">Storefront</a>
+	<a href="index.html"><h2 class="logo">Saks 108th Avenue</h2></a>
 	<a href="inventory.html">Inventory</a>
 	
 	<div class="navbar-right">
-		<a href="cart.html"><img src="img/shopping-cart-light.png"></a>
+		<a href="cart.html">
+			<span class="vert-top">Cart</span>
+			<img src="img/shopping-cart-light.png">
+		</a>
 		<span id="login-status" class="sub-header">Loading login status</span>
 	</div>
 </div>
 
 <div class="content">
 	<noscript>JavaScript must be enabled.</noscript>
-	<h1>Shopping cart</h1>
-	<p><p>
-	<label for="cart-items">Contents</label>
-	<table id="cart-items" class="banded-table">
-		<tr>
-			<th>Part name</th>
-			<th>Price</th>
-			<th>Quantity selected</th>
-		</tr>
-		<span id="cart-items-placeholder">Loading...</span>
-	</table>
+	<h2>Checkout</h2>
+	<p></p>
+	<div class="scrollable">
+		<table id="cart-items" class="banded-table">
+			<tr>
+				<th>Part name</th>
+				<th>Price</th>
+				<th>Quantity selected</th>
+			</tr>
+			<span id="cart-items-placeholder">Loading...</span>
+		</table>
+	</div>
 	<br>
 	<form onsubmit="placeOrder(); return false" class="right-center">
 		<div class="side-by-side">
@@ -76,9 +80,7 @@
 			<label for="card-zipcode">Zipcode on billing address</label>
 			<input type="text" id="card-zipcode">
 		</div>
-		<div class="side-by-side">
-			<button>Place order</button>
-		</div>
+		<button class="gold">Place order</button>
 	</form>
 </div>
 </body>

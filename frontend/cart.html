@@ -18,30 +18,39 @@
 <body>
 <!-- Top of page header-->
 <div class="navbar">
-	<a href="index.html">Storefront</a>
+	<a href="index.html"><h2 class="logo">Saks 108th Avenue</h2></a>
 	<a href="inventory.html">Inventory</a>
 	
 	<div class="navbar-right">
-		<a href="cart.html"><img src="img/shopping-cart-light.png"></a>
+		<a href="cart.html">
+			<span class="vert-top">Cart</span>
+			<img src="img/shopping-cart-light.png">
+		</a>
 		<span id="login-status" class="sub-header">Loading login status</span>
 	</div>
 </div>
 
 <div class="content">
 	<noscript>JavaScript must be enabled.</noscript>
-	<h1>Shopping cart</h1>
+	<h2>Shopping cart</h2>
 	<p><p>
-	<label for="cart-items">Contents</label>
-	<table id="cart-items" class="banded-table">
-		<tr>
-			<th>Part name</th>
-			<th>Price</th>
-			<th>Quantity selected</th>
-		</tr>
-		<span id="cart-items-placeholder">Loading...</span>
-	</table>
+	<div class="scrollable">
+		<table id="cart-items" class="banded-table">
+			<tr>
+				<th>Part name</th>
+				<th>Price</th>
+				<th>Quantity selected</th>
+			</tr>
+			<span id="cart-items-placeholder">Loading...</span>
+		</table>
+	</div>
 	<br>
-	<button class="gold" onclick="window.location.href = 'checkout.html'">
+	<button
+		id="continue"
+		class="gold"
+		onclick="window.location.href = 'checkout.html'"
+		style="display: none"
+	>
 		Continue to checkout
 	</button>
 </div>

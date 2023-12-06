@@ -16,6 +16,22 @@ let products;
 		.getElementById('products-placeholder')
 		.classList
 		.add('done-loading');
+	
+	const urlParams = new URLSearchParams(window.location.search);
+	const productId = +urlParams.get('productId');
+	if (productId) {
+		detail(productId);
+		
+		// Strip param from URL so the modal doesn't re-open on refresh
+		(window
+			.history
+			.replaceState(
+				{},
+				document.title,
+				"index.html"
+			)
+		);
+	}
 })();
 
 async function detail(productId) {
@@ -23,21 +39,16 @@ async function detail(productId) {
 	const productDetails = products.find(product => product.id === productId);
 	const modalLoadedContent = document.getElementById('modal-loaded-content');
 	modalLoadedContent.innerHTML = `
-		<div>${productDetails.name}</div>
-		<div>
-			<a href="details.html?productId=${productId}">
-				View customer-facing page for this product
-			</a>
-		</div>
-		<br>
+		<div><h2>${productDetails.name}</h2></div>
 		<div>$${productDetails.price}</div>
 		<br>
 		<div>${productDetails.stock} in stock</div>
 		<form onsubmit="addQtyToCart(${productId}); return false">
-			<input type="number" id="qty" placeholder="1">
+			<input type="number" id="qty" value="1">
 			<label for="qty">Qty.</label>
-			<input type="submit" value="Add to Cart">
+			<input type="submit" value="Add to cart">
 		</form>
+		<br>
 		<div>${productDetails.description}</div>
 	`;
 	document
@@ -46,8 +57,14 @@ async function detail(productId) {
 		.add('done-loading');
 }
 
-function addQtyToCart(productId) {
-	//
+async function addQtyToCart(productId) {
+	const quantity = document.getElementById('qty').value;
+	const cart = JSON.parse(localStorage.getItem('cart') ?? '{}');
+	
+	cart[productId] = +(cart[productId] ?? 0) + +quantity;
+	
+	localStorage.setItem('cart', JSON.stringify(cart));
+	window.location = 'cart.html';
 }
 
 // Courtesy of https://www.w3schools.com/howto/howto_css_modals.asp

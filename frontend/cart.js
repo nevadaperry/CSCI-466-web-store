@@ -1,5 +1,5 @@
 let products;
-let cartItems;
+let cart;
 (async () => {
 	products = Object.fromEntries(
 		(await api.getProducts()).map(product => [
@@ -7,21 +7,38 @@ let cartItems;
 			product
 		])
 	);
-	cartItems = JSON.parse(localStorage.getItem('cartItems') ?? '[]');
-	cartItems.push({productId: 19, quantity: 2});
-	cartItems.push({productId: 14, quantity: 3});
-	for (const cartItem of cartItems) {
-		const product = products[cartItem.productId];
+	cart = JSON.parse(localStorage.getItem('cart') ?? '{}');
+	let thereAreAnyItems = false;
+	for (const [productId, quantity] of Object.entries(cart)) {
+		if (+quantity === 0) {
+			delete cart[productId];
+			continue;
+		}
+		const product = products[productId];
 		document.getElementById('cart-items').insertAdjacentHTML(
 			'beforeend',
-			`
-				<tr>
-					<td>${product.name}</td>
-					<td>${product.price}</td>
-					<td>${cartItem.quantity}</td>
-				</tr>
-			`,
+			`<tr>
+				<td>${product.name}</td>
+				<td>${product.price}</td>
+				<td>
+					<input
+						type="number"
+						value="${quantity}"
+						id="qty-${productId}"
+						onchange="handleQtyChange(${productId})"
+					>
+				</td>
+				<td>
+					<button onclick="deleteCartItem(${productId})">
+						Delete
+					</button>
+				</td>
+			</tr>`,
 		);
+		thereAreAnyItems = true;
+	}
+	if (thereAreAnyItems) {
+		document.getElementById('continue').style.display = 'block';
 	}
 	document
 		.getElementById('cart-items-placeholder')
@@ -29,25 +46,14 @@ let cartItems;
 		.add('done-loading');
 })();
 
-function getInput(elementId) {
-	return document.getElementById(elementId).value;
+function handleQtyChange(productId) {
+	const newQuantity = document.getElementById(`qty-${productId}`).value;
+	cart[productId] = newQuantity;
+	localStorage.setItem('cart', JSON.stringify(cart));
 }
 
-async function placeOrder() {
-	const order = {
-		email: localStorage.getItem('email') ?? 'NOT LOGGED IN',
-		shipping_address: getInput('shipping-address'),
-		name_on_card: getInput('name-on-card'),
-		card_number: getInput('card-number'),
-		card_exp: getInput('card-exp'),
-		card_cvv: getInput('card-cvv'),
-		card_zipcode: getInput('card-zipcode'),
-		phone_number: getInput('phone-number'),
-		line_items: cartItems.map(cartItem => ({
-			product_id: cartItem.productId,
-			quantity: cartItem.quantity,
-		})),
-	};
-	const orderId = await api.postOrder(order);
-	window.location = `confirmation.html?orderId=${orderId}`;
+function deleteCartItem(productId) {
+	delete cart[productId];
+	localStorage.setItem('cart', JSON.stringify(cart));
+	window.location.reload();
 }

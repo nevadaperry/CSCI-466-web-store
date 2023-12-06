@@ -1,5 +1,5 @@
 let products;
-let cartItems;
+let cart;
 (async () => {
 	products = Object.fromEntries(
 		(await api.getProducts()).map(product => [
@@ -7,18 +7,16 @@ let cartItems;
 			product
 		])
 	);
-	cartItems = JSON.parse(localStorage.getItem('cartItems') ?? '[]');
-	cartItems.push({productId: 19, quantity: 2});
-	cartItems.push({productId: 14, quantity: 3});
-	for (const cartItem of cartItems) {
-		const product = products[cartItem.productId];
+	cart = JSON.parse(localStorage.getItem('cart') ?? '{}');
+	for (const [productId, quantity] of Object.entries(cart)) {
+		const product = products[productId];
 		document.getElementById('cart-items').insertAdjacentHTML(
 			'beforeend',
 			`
 				<tr>
 					<td>${product.name}</td>
 					<td>${product.price}</td>
-					<td>${cartItem.quantity}</td>
+					<td>${quantity}</td>
 				</tr>
 			`,
 		);
@@ -43,9 +41,9 @@ async function placeOrder() {
 		card_cvv: getInput('card-cvv'),
 		card_zipcode: getInput('card-zipcode'),
 		phone_number: getInput('phone-number'),
-		line_items: cartItems.map(cartItem => ({
-			product_id: cartItem.productId,
-			quantity: cartItem.quantity,
+		line_items: Object.entries(cart).map(([productId, quantity]) => ({
+			product_id: productId,
+			quantity: quantity,
 		})),
 	};
 	const orderId = await api.postOrder(order);

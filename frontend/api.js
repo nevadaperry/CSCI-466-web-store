@@ -24,6 +24,10 @@ const api = {
 		method: 'GET',
 		url: `${apiUrl}/orders`,
 	})).data,
+	getOrderDetails: async (orderId) => (await axios({
+		method: 'GET',
+		url: `${apiUrl}/orders/${orderId}`,
+	})).data,
 	postOrder: async (order) => (await axios({
 		method: 'POST',
 		url: `${apiUrl}/orders`,

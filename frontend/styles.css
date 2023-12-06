@@ -3,9 +3,8 @@
 }
 
 .navbar {
-	position: relative;
 	background-color: #333;
-	overflow: hidden;
+	height: 3.2rem;
 }
 
 .navbar a {
@@ -48,7 +47,7 @@
 }
 
 .gold, .navbar a.active, .navbar a:hover {
-	background-color: rgb(173, 124, 0);
+	background-color: rgb(173, 131, 0);
 	color: white;
 	border-width: 0;
 	box-shadow: 0 4px 8px 0 rgba(143, 117, 51, 0.5), 0 6px 20px 0 rgba(143, 117, 51, 0.5);
@@ -77,12 +76,26 @@
 }
 
 .white-gold {
-	color: rgb(255, 235, 185);
+	color: rgb(255, 235, 155);
+}
+
+.vert-top {
+	vertical-align: top;
+	margin-top: 2px;
 }
 
 .content {
 	max-width: max-content;
 	margin: auto;
+}
+
+.logo {
+	margin-top: -0.3rem;
+	margin-bottom: 0;
+	font-weight: bolder;
+	font-size: 1.5rem;
+	color: rgb(255, 235, 155);
+	/*box-shadow: 0 4px 8px 0 rgba(143, 117, 51, 0.5), 0 6px 20px 0 rgba(143, 117, 51, 0.5);*/
 }
 
 body {
@@ -97,6 +110,10 @@ table, table th, table td {
 	border-collapse: collapse;
 	border: 1px solid rgb(57, 63, 74);
 	padding: 12px;
+}
+
+table {
+	box-shadow: 0 4px 8px 0 rgba(57, 63, 74, 0.5), 0 6px 20px 0 rgba(57, 63, 74, 0.5);
 }
 
 .banded-table tbody:nth-of-type(even) {

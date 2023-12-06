@@ -30,6 +30,10 @@ else if (preg_match('/^PUT \/products\/[0-9]+$/', "{$method} {$uri}")) {
 else if ("{$method} {$uri}" == 'GET /orders') {
 	print json_encode(list_orders($pdo));
 }
+else if (preg_match('/^GET \/orders\/[0-9]+$/', "{$method} {$uri}")) {
+	$order_id = explode('/', $uri)[2];
+	print json_encode(get_order_details($pdo, $order_id));
+}
 else if ("{$method} {$uri}" == 'POST /orders') {
 	$order = file_get_contents('php://input');
 	print json_encode(post_order($pdo, json_decode($order, true)));
@@ -39,6 +43,8 @@ else if ("{$method} {$uri}" == 'GET /smoothie') {
 }
 else if ("{$method} {$uri}" == 'PUT /smoothie') {
 	print 'You put a smoothie';
+} else {
+	throw new Exception("Unknown endpoint {$method} {$uri}");
 }
 
 ?>
