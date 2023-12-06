@@ -38,6 +38,6 @@ function logOut() {
 
 document.getElementById('bottom-navbar').innerHTML = `
 	<a href="inventory.html">Inventory</a>
-	<a href="customer-orders.html">All Orders</a>
-	<a href="customer-orders.html">Outstanding Orders</a>
+	<a href="all-orders.html">All Orders</a>
+	<a href="outstanding-orders.html">Outstanding Orders</a>
 `;

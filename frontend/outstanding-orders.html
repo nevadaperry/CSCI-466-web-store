@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Inventory</title>
+
+	<!-- CSS link -->
+	<link rel="stylesheet" href="styles.css" />
+	<link rel="stylesheet" href="modal.css">
+
+	<!-- JavaScript -->
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+	<script src="api.js"></script>
+	<script defer src="navbar.js"></script>
+	<script defer src=""></script>
+</head>
+
+<body>
+<!-- Top of page header-->
+<div class="navbar" id="main-navbar"></div>
+
+<div class="content">
+	<noscript>JavaScript must be enabled.</noscript>
+	<h2>Your order history</h2>
+	<p></p>
+	<label for="orders">Select an order for more information.</label>
+	<p></p>
+	<div class="scrollable">
+		<table id="orders" class="banded-table">
+			<tr>
+				<th>Order number</th>
+				<th>Total paid</th>
+				<th>Status</th>
+			</tr>
+			<span id="orders-placeholder">Loading...</span>
+		</table>
+	</div>
+	<div id="details-modal" class="modal">
+		<div class="modal-content">
+			<span id="modal-content-placeholder">Loading...</span>
+			<div id="modal-loaded-content"></div>
+		</div>
+	</div>
+</div>
+
+<!-- Bottom page navbar-->
+<div class="bottom-text"><p>Employee Site Management</p></div>
+<div class="navbar" id="bottom-navbar"></div>
+</body>
+</html>
