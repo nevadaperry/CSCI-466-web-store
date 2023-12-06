@@ -18,11 +18,17 @@ if ("{$method} {$uri}" == 'GET /') {
 else if ("{$method} {$uri}" == 'GET /products') {
 	print json_encode(list_products($pdo));
 }
-else if (preg_match('/^GET \/products\/[0-9]+$/', "{$method} {$uri}")) {
+else if (preg_match(
+	'/^GET \/products\/[0-9]+$/',
+	"{$method} {$uri}"
+)) {
 	$product_id = explode('/', $uri)[2];
 	print json_encode(get_product_details($pdo, $product_id));
 }
-else if (preg_match('/^PUT \/products\/[0-9]+$/', "{$method} {$uri}")) {
+else if (preg_match(
+	'/^PUT \/products\/[0-9]+$/',
+	"{$method} {$uri}"
+)) {
 	$product_id = explode('/', $uri)[2];
 	$stock = file_get_contents('php://input');
 	set_product_stock($pdo, $product_id, $stock);
@@ -30,7 +36,17 @@ else if (preg_match('/^PUT \/products\/[0-9]+$/', "{$method} {$uri}")) {
 else if ("{$method} {$uri}" == 'GET /orders') {
 	print json_encode(list_orders($pdo));
 }
-else if (preg_match('/^GET \/orders\/[0-9]+$/', "{$method} {$uri}")) {
+else if (preg_match(
+	'/^GET \/orders-for-customer\/[0-9]+$/',
+	"{$method} {$uri}"
+)) {
+	$customer_id = explode('/', $uri)[2];
+	print json_encode(list_orders_for_customer($pdo, $customer_id));
+}
+else if (preg_match(
+	'/^GET \/orders\/[0-9]+$/',
+	"{$method} {$uri}"
+)) {
 	$order_id = explode('/', $uri)[2];
 	print json_encode(get_order_details($pdo, $order_id));
 }
