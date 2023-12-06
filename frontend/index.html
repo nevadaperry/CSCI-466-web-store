@@ -11,6 +11,7 @@
 	<!-- JavaScript -->
 	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 	<script src="api.js"></script>
+	<script defer src="login-indicator.js"></script>
 	<script defer src="index.js"></script>
 </head>
 <body>
@@ -19,12 +20,11 @@
 	<a href="index.html">Storefront</a>
 	<a href="inventory.html">Inventory</a>
 
-	<div class="navbar-right">
-		<a href="login.html">Log In</a>
+	<span class="navbar-right">
 		<a href="checkout.html"><img src="img/shopping-cart-light.png"></a>
-	</div>
+		<span id="login-status" class="sub-header">Loading login status</span>
+	</span>
 </div>
-<div id="login-status" class="sub-header">Loading login status</div>
 
 <div class="content">
 	<noscript>JavaScript must be enabled.</noscript>
