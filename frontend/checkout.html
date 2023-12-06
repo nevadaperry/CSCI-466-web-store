@@ -1,13 +1,31 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Shopping cart</title>
-	<meta charset="UTF-8" />
-	<link rel="stylesheet" href="styles.css">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Shopping Cart</title>
+
+	<!-- CSS link -->
+	<link rel="stylesheet" href="styles.css" />
+
+	<!-- JavaScript -->
 	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 	<script src="api.js"></script>
 	<script defer src="checkout.js"></script>
 </head>
+
 <body>
+	<!-- Top of page header-->
+	<div class="navbar">
+		<a href="index.html">Storefront</a>
+		<a href="inventory.html">Inventory</a>
+
+		<div class="navbar-right">
+			<a href="login.html">Log In</a>
+			<a href="checkout.html"><img src="img/shopping-cart-light.png"></a>
+		</div>
+	</div>
+
 	<noscript>JavaScript must be enabled.</noscript>
 	<h1>Shopping cart</h1>
 	<a href="index.html">...Homepage</a>
