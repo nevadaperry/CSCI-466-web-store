@@ -24,6 +24,10 @@ const api = {
 		method: 'GET',
 		url: `${apiUrl}/orders`,
 	})).data,
+	getOrdersForCustomer: async (email) => (await axios({
+		method: 'GET',
+		url: `${apiUrl}/orders-for-customer/${email}`,
+	})).data,
 	getOrderDetails: async (orderId) => (await axios({
 		method: 'GET',
 		url: `${apiUrl}/orders/${orderId}`,

@@ -3,16 +3,17 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>Shopping Cart</title>
+	<title>Inventory</title>
 
 	<!-- CSS link -->
 	<link rel="stylesheet" href="styles.css" />
+	<link rel="stylesheet" href="modal.css">
 
 	<!-- JavaScript -->
 	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 	<script src="api.js"></script>
 	<script defer src="login-indicator.js"></script>
-	<script defer src="cart.js"></script>
+	<script defer src="inventory.js"></script>
 </head>
 
 <body>
@@ -20,7 +21,7 @@
 <div class="navbar">
 	<a href="index.html"><h2 class="logo">Saks 108th Avenue</h2></a>
 	<a href="inventory.html">Inventory</a>
-	
+
 	<div class="navbar-right">
 		<a href="cart.html">
 			<span class="vert-top">Cart</span>
@@ -32,26 +33,26 @@
 
 <div class="content">
 	<noscript>JavaScript must be enabled.</noscript>
-	<h2>Shopping cart</h2>
-	<p><p>
+	<h2>Inventory management view</h2>
+	<p></p>
+	<label for="orders">Select an order for more information.</label>
+	<p></p>
 	<div class="scrollable">
-		<table id="cart-items" class="banded-table">
+		<table id="orders" class="banded-table">
 			<tr>
 				<th>Part name</th>
 				<th>Price</th>
-				<th>Quantity selected</th>
+				<th>Number in stock</th>
 			</tr>
-			<span id="cart-items-placeholder">Loading...</span>
+			<span id="orders-placeholder">Loading...</span>
 		</table>
 	</div>
-	<br>
-	<button
-		id="continue"
-		class="gold"
-		style="display: none"
-	>
-		Continue to checkout
-	</button>
+	<div id="details-modal" class="modal">
+		<div class="modal-content">
+			<span id="modal-content-placeholder">Loading...</span>
+			<div id="modal-loaded-content"></div>
+		</div>
+	</div>
 </div>
 </body>
 </html>

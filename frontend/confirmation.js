@@ -7,22 +7,25 @@
 	);
 	const urlParams = new URLSearchParams(window.location.search);
 	const orderId = +urlParams.get('orderId');
-	const orderItems = await api.getOrder(orderId);
-	for (const orderItem of orderItems) {
-		const product = products[orderItem.id];
-		document.getElementById('cart-items').insertAdjacentHTML(
+	const order = await api.getOrderDetails(orderId);
+	// Not sure how to do this without MySQL stringifying the object array
+	console.log('hi', JSON.stringify(order, null, 2));
+	const lineItems = JSON.parse(order.line_items);
+	for (const lineItem of lineItems) {
+		const product = products[lineItem.product_id];
+		document.getElementById('order-items').insertAdjacentHTML(
 			'beforeend',
 			`
 				<tr>
-					<td>${product.name}</td>
-					<td>${product.price}</td>
-					<td>${cartItem.quantity}</td>
+					<td>${lineItem.product_name}</td>
+					<td>${lineItem.frozen_price}</td>
+					<td>${lineItem.quantity}</td>
 				</tr>
 			`,
 		);
 	}
 	document
-		.getElementById('cart-items-placeholder')
+		.getElementById('order-items-placeholder')
 		.classList
 		.add('done-loading');
 })();

@@ -6,6 +6,7 @@ function processLogin() {
 	const returnTo = 
 		(new URL(window.location.href))
 		.searchParams
-		.get('returnTo');
-	window.location = returnTo ?? 'index.html';
+		.get('returnTo')
+		?? 'index.html';
+	window.location = returnTo;
 }

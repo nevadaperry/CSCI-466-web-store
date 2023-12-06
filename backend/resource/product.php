@@ -18,7 +18,7 @@ function get_product_details($pdo, $product_id) {
 			stock
 		FROM product
 		WHERE id = ?
-	", [$product_id]);
+	", [$product_id])[0];
 }
 
 function set_product_stock($pdo, $product_id, $stock) {

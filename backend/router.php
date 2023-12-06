@@ -40,8 +40,8 @@ else if (preg_match(
 	'/^GET \/orders-for-customer\/[0-9]+$/',
 	"{$method} {$uri}"
 )) {
-	$customer_id = explode('/', $uri)[2];
-	print json_encode(list_orders_for_customer($pdo, $customer_id));
+	$email = explode('/', $uri)[2];
+	print json_encode(list_orders_for_customer($pdo, $email));
 }
 else if (preg_match(
 	'/^GET \/orders\/[0-9]+$/',

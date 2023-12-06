@@ -37,9 +37,18 @@ let cart;
 		);
 		thereAreAnyItems = true;
 	}
-	if (thereAreAnyItems) {
-		document.getElementById('continue').style.display = 'block';
+	
+	const continueButton = document.getElementById('continue');
+	if (localStorage.getItem('email')) {
+		continueButton.onclick = () => window.location.href = 'checkout.html';
+	} else {
+		continueButton.onclick = () =>
+			window.location.href = 'login.html?returnTo=checkout.html';
 	}
+	if (thereAreAnyItems) {
+		continueButton.style.display = 'block';
+	}
+	
 	document
 		.getElementById('cart-items-placeholder')
 		.classList

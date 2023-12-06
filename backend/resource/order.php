@@ -89,7 +89,7 @@ function list_orders_for_customer($pdo) {
 	", [$customer_id]);
 }
 
-function get_order_details($pdo, $order_id) {
+function get_order_details($pdo, $email) {
 	return query_db($pdo, "
 		SELECT
 			o.id,
@@ -128,9 +128,10 @@ function get_order_details($pdo, $order_id) {
 		LEFT JOIN order_line_item oli ON oli.order_id = o.id
 		LEFT JOIN product p ON oli.product_id = p.id
 		LEFT JOIN order_note `on` ON `on`.order_id = o.id
-		WHERE o.id = ?
+		JOIN customer c ON o.customer_id = c.id
+		WHERE c.email = ?
 		GROUP BY 1
-	", [$order_id]);
+	", [$email])[0];
 }
 
 function post_order($pdo, $order) {
