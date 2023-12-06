@@ -1,15 +1,33 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Web Store</title>
+
+	<!-- CSS link -->
+	<link rel="stylesheet" href="styles.css" />
+
+	<!-- JavaScript -->
 	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 	<script src="api.js"></script>
 </head>
-<body style="background: #333">
-<div>
-	<div style="color: #eee; font-family: sans-serif; font-size: xx-large; text-align: center">
-		Hello world!
+<body>
+<!-- Top of page header-->
+<div class="navbar">
+	<a href="index.html">Storefront</a>
+	<a href="inventory.html">Inventory</a>
+
+	<div class="navbar-right">
+		<a href="#">Log In</a>
+		<a href="#"><img src="img/shopping-cart-light.png"></a>
 	</div>
-	<div>
-		<a href="inventory.html">Inventory page</a>
+</div>
+
+<div>
+	<div style="color: black; font-family: sans-serif; font-size: xx-large; text-align: center">
+		Store items & their info will go here
+		as well as option to add to cart.
 	</div>
 </div>
 </body>
