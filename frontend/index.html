@@ -1,21 +1,37 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>Web Store</title>
-	<meta charset="UTF-8" />
-	<link rel="stylesheet" href="styles.css">
+
+	<!-- CSS link -->
+	<link rel="stylesheet" href="styles.css" />
+
+	<!-- JavaScript -->
 	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 	<script src="api.js"></script>
 	<script defer src="index.js"></script>
 </head>
-<body></body>
+<body>
+<!-- Top of page header-->
+<div class="navbar">
+	<a href="index.html">Storefront</a>
+	<a href="inventory.html">Inventory</a>
+
+	<div class="navbar-right">
+		<a href="login.html">Log In</a>
+		<a href="checkout.html"><img src="img/shopping-cart-light.png"></a>
+	</div>
+</div>
+  
+<div id="login-status" class="sub-header">Loading login status</div>
+
 <div>
-	<h1>Hello world!</h1>
-	<div id="login-status" class="sub-header">Loading login status</div>
-	<p></p>
-	<div><a href="inventory.html">Inventory page</a></div>
-	<div><a href="details.html">Details page</a></div>
-	<div><a href="login.html">Login page</a></div>
-	<div><a href="checkout.html">Shopping cart page</a></div>
+	<div style="color: black; font-family: sans-serif; font-size: xx-large; text-align: center">
+		Store items & their info will go here
+		as well as option to add to cart.
+	</div>
 </div>
 </body>
 </html>
