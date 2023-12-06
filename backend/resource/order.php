@@ -222,7 +222,7 @@ function post_order($pdo, $order) {
 				quantity int PATH '$.quantity'
 			)
 		) AS line_item ON line_item.product_id = product.id
-		SET product.quantity = product.quantity - line_item.quantity
+		SET product.stock = product.stock - line_item.quantity
 	", [
 		json_encode($order['line_items'])
 	]);
