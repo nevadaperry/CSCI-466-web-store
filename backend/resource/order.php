@@ -55,8 +55,8 @@ function post_order($order) {
 				?,
 				?,
 				?
-			)
-			RETURNING id
+			);
+			SELECT last_insert_id();
 		)
 		INSERT INTO order_line_item (
 			order_id,
@@ -65,9 +65,9 @@ function post_order($order) {
 			quantity
 		)
 		SELECT
-			inserted.id AS order_id,
+			inserted.id,
 			line_item.product_id,
-			p.price AS frozen_price,
+			product.price,
 			line_item.quantity
 		FROM json_table(
 			?,
@@ -78,7 +78,7 @@ function post_order($order) {
 				quantity int PATH '$.quantity'
 			)
 		) AS line_item
-		JOIN product p ON line_item.product_id = p.id
+		JOIN product ON line_item.product_id = product.id
 	", [
 		$order['shipping_address'],
 		$order['name_on_card'],
@@ -87,6 +87,6 @@ function post_order($order) {
 		$order['card_cvv'],
 		$order['card_zipcode'],
 		$order['phone_number'],
-		$order['line_items']
+		json_encode($order['line_items'])
 	]);
 }
