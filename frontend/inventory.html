@@ -1,34 +1,12 @@
 <html lang="en">
 <head>
-	<title>Inventory For Group 108</title>
+	<title>Inventory</title>
 	<meta charset="UTF-8" />
 	<link rel="stylesheet" href="styles.css">
+	<link rel="stylesheet" href="modal.css">
 	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 	<script src="api.js"></script>
-	<script>
-		(async () => {
-			const products = await api.getProducts();
-			for (const product of products) {
-				document.getElementById('products').insertAdjacentHTML(
-					'beforeend',
-					`<tr>
-						<td>
-							<input
-								type="radio"
-								name="selected"
-								value="${product.id}"
-								id="${product.id}"
-							>
-						</td>
-						<td>${product.name}</td>
-						<td>${product.price}</td>
-						<td>${product.stock}</td>
-					</tr>`
-				);
-			}
-			removePlaceholders();
-		})();
-	</script>
+	<script defer src="inventory.js"></script>
 </head>
 <body>
 	<!-- Top of page header-->
@@ -43,18 +21,23 @@
 	</div>
 
 	<noscript>JavaScript must be enabled.</noscript>
-	<form id="Inventory" method="post" action="details.php">
-		<br><label>Select a product for more information.</label><br>
-		<table id="products">
-			<tr>
-				<th></th>
-				<th>Part Name</th>
-				<th>Price</th>
-				<th>Number in stock</th>
-			</tr>
-			<div class="loading-placeholder">Loading...</div>
-		</table><br>
-		<input type="submit" value="Confirm" form="Inventory">
-	</form>
+	<h1>Inventory management view</h1>
+	<a href="index.html">...Homepage</a>
+	<p></p>
+	<label for="products">Select a product for more information.</label>
+	<table id="products">
+		<tr>
+			<th>Part name</th>
+			<th>Price</th>
+			<th>Number in stock</th>
+		</tr>
+		<span id="products-placeholder">Loading...</span>
+	</table>
+	<div id="details-modal" class="modal">
+		<div class="modal-content">
+			<span id="modal-content-placeholder">Loading...</span>
+			<div id="modal-loaded-content"></div>
+		</div>
+	</div>
 </body>
 </html>
