@@ -2,8 +2,8 @@
 
 include_once "query.php";
 
-function list_orders() {
-	return query_db("
+function list_orders($pdo) {
+	return query_db($pdo, "
 		SELECT
 			o.id,
 			o.shipping_address,
@@ -36,13 +36,19 @@ function list_orders() {
 	");
 }
 
-function post_order($order) {
-	return json_encode($order);
-	return query_db("
+function post_order($pdo, $order) {
+	// pain
+	$pdo->beginTransaction();
+	
+	query_db($pdo, "
 		INSERT INTO customer (email) VALUES (
 			?
-		) ON DUPLICATE KEY UPDATE id = id;
-		
+		) ON DUPLICATE KEY UPDATE id = id
+	", [
+		$order['email']
+	]);
+	
+	query_db($pdo, "
 		INSERT INTO `order` (
 			customer_id,
 			shipping_address,
@@ -64,8 +70,19 @@ function post_order($order) {
 			?
 		FROM (
 			SELECT id FROM customer WHERE email = ?
-		) inserted_customer;
-		
+		) inserted_customer
+	", [
+		$order['shipping_address'],
+		$order['name_on_card'],
+		$order['card_number'],
+		$order['card_exp'],
+		$order['card_cvv'],
+		$order['card_zipcode'],
+		$order['phone_number'],
+		$order['email']
+	]);
+	
+	query_db($pdo, "
 		INSERT INTO order_line_item (
 			order_id,
 			product_id,
@@ -82,24 +99,21 @@ function post_order($order) {
 		) inserted_order
 		LEFT JOIN json_table(
 			?,
-			'$[*]' columns (
+			'$[*]' COLUMNS (
 				product_id bigint PATH '$.product_id',
 				quantity int PATH '$.quantity'
 			)
 		) AS line_item ON TRUE
-		JOIN product ON line_item.product_id = product.id;
-		
-		SELECT id FROM `order` ORDER BY id DESC LIMIT 1;
+		JOIN product ON line_item.product_id = product.id
 	", [
-		$order['email'],
-		$order['shipping_address'],
-		$order['name_on_card'],
-		$order['card_number'],
-		$order['card_exp'],
-		$order['card_cvv'],
-		$order['card_zipcode'],
-		$order['phone_number'],
-		$order['email'],
 		json_encode($order['line_items'])
-	]);//[0]['id'];
+	]);
+	
+	$order_id = query_db($pdo, "
+		SELECT id FROM `order` ORDER BY id DESC LIMIT 1;
+	")[0]['id'];
+	
+	$pdo->commit();
+	
+	return $order_id;
 }

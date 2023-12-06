@@ -2,14 +2,14 @@
 
 include_once "query.php";
 
-function list_products() {
-	return query_db("
+function list_products($pdo) {
+	return query_db($pdo, "
 		SELECT id, name, description, price, stock FROM product
 	");
 }
 
-function get_product_details($product_id) {
-	return query_db("
+function get_product_details($pdo, $product_id) {
+	return query_db($pdo, "
 		SELECT
 			id,
 			name,
@@ -21,8 +21,8 @@ function get_product_details($product_id) {
 	", [$product_id]);
 }
 
-function set_product_stock($product_id, $stock) {
-	return query_db("
+function set_product_stock($pdo, $product_id, $stock) {
+	return query_db($pdo, "
 		UPDATE product
 		SET stock = ?
 		WHERE id = ?
