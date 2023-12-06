@@ -155,3 +155,7 @@ input, textarea {
 label {
 	margin: 4px;
 }
+
+.bottom-text {
+	margin-top: 200px;
+}
