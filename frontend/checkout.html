@@ -32,7 +32,7 @@
 	<h1>Shopping cart</h1>
 	<p><p>
 	<label for="cart-items">Contents</label>
-	<table id="cart-items">
+	<table id="cart-items" class="banded-table">
 		<tr>
 			<th>Part name</th>
 			<th>Price</th>
@@ -42,32 +42,43 @@
 	</table>
 	<br>
 	<form onsubmit="placeOrder(); return false" class="right-center">
-		<label for="shipping-address">Shipping address</label>
-		<textarea
-			id="shipping-address"
-			placeholder="Recipient Name&#10;123 Gravel Rd Unit 345&#10;McKinney, AL 98103"
-			rows="3"
-		></textarea>
-		<br>
-		<label for="phone-number">Phone number of recipient</label>
-		<input type="text" id="phone-number">
-		<br>
-		<label for="name-on-card">Name on card</label>
-		<input type="text" id="name-on-card">
-		<br>
-		<label for="card-number">Card number</label>
-		<input type="text" id="card-number">
-		<br>
-		<label for="card-exp">Card expiration date</label>
-		<input type="text" id="card-exp" placeholder="MM/YY">
-		<br>
-		<label for="card-cvv">Card security code</label>
-		<input type="text" id="card-cvv">
-		<br>
-		<label for="card-zipcode">Zipcode on billing address</label>
-		<input type="text" id="card-zipcode">
-		<br>
-		<button>Place order</button>
+		<div class="side-by-side">
+			<label for="shipping-address">
+				Shipping address
+			</label>
+			<textarea
+				id="shipping-address"
+				placeholder="Recipient Name&#10;123 Gravel Rd Unit 345&#10;McKinney, AL 98103"
+				rows="3"
+			></textarea>
+		</div>
+		<div class="side-by-side">
+			<label for="phone-number">Phone number of recipient</label>
+			<input type="text" id="phone-number">
+		</div>
+		<div class="side-by-side">
+			<label for="name-on-card">Name on card</label>
+			<input type="text" id="name-on-card">
+		</div>
+		<div class="side-by-side">
+			<label for="card-number">Card number</label>
+			<input type="text" id="card-number">
+		</div>
+		<div class="side-by-side">
+			<label for="card-exp">Card expiration date</label>
+			<input type="text" id="card-exp" placeholder="MM/YY">
+		</div>
+		<div class="side-by-side">
+			<label for="card-cvv">Card security code</label>
+			<input type="text" id="card-cvv">
+		</div>
+		<div class="side-by-side">
+			<label for="card-zipcode">Zipcode on billing address</label>
+			<input type="text" id="card-zipcode">
+		</div>
+		<div class="side-by-side">
+			<button>Place order</button>
+		</div>
 	</form>
 </div>
 </body>

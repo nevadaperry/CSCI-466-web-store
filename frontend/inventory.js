@@ -39,6 +39,7 @@ async function openModal(productId) {
 			<label for="new-stock"></label>
 			<input type="submit" value="Update">
 		</form>
+		<br>
 		<div>${productDetails.description}</div>
 	`;
 	document
