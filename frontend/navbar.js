@@ -37,7 +37,6 @@ function logOut() {
 }
 
 document.getElementById('bottom-navbar').innerHTML = `
-	<a href="#bottom">Employee Site Management</a>
 	<a href="inventory.html">Inventory</a>
 	<a href="customer-orders.html">All Orders</a>
 	<a href="customer-orders.html">Outstanding Orders</a>
