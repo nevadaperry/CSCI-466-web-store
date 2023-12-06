@@ -110,7 +110,7 @@ function post_order($pdo, $order) {
 	]);
 	
 	$order_id = query_db($pdo, "
-		SELECT id FROM `order` ORDER BY id DESC LIMIT 1;
+		SELECT id FROM `order` ORDER BY id DESC LIMIT 1
 	")[0]['id'];
 	
 	$pdo->commit();
