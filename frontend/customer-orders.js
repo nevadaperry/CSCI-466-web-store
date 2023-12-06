@@ -6,13 +6,15 @@ let customersOrders;
 	}
 	customersOrders = await api.getOrdersForCustomer(email);
 	for (const order of customersOrders) {
+		order.status = (order.shipped_at) ? 'Shipped' : 'Processing';
+		order.padded_id = String(order.id).padStart(7, '0');
 		document.getElementById('orders').insertAdjacentHTML(
 			'beforeend',
 			`
 				<tr onclick="openModal(${order.id})" class="clicky">
-					<td>${order.shipping_address}</td>
-					<td>${order.name_on_card}</td>
-					<td>${order.phone_number}</td>
+					<td>${order.padded_id}</td>
+					<td>${order.total_price}</td>
+					<td>${order.status}</td>
 				</tr>
 			`,
 		);
@@ -25,16 +27,38 @@ let customersOrders;
 
 async function openModal(orderId) {
 	detailsModal.style.display = 'block';
-	const orderDetails = orders.find(order => order.id === orderId);
+	const order = customersOrders.find(order => order.id === orderId);
+	const lineItems = JSON.parse(order.line_items);
 	const modalLoadedContent = document.getElementById('modal-loaded-content');
 	modalLoadedContent.innerHTML = `
-		<div><h2>${orderDetails.name}</h2></div>
+		<div><h2>
+			Order #${order.padded_id}, placed at
+			${new Date(order.placed_at)}
+		</h2></div>
 		<br>
-		<div>$${orderDetails.price}</div>
+		<div>
+			Tracking number: ${order.tracking_number ?? 'Not yet shipped.'}
+		</div>
 		<br>
-		<div>${orderDetails.stock} in stock</div>
+		<div>
+			Order total: $${order.total_price}
+		</div>
 		<br>
-		<div>${orderDetails.description}</div>
+		<label for="order-line-items">Line items</label>
+		<table id="order-line-items">
+			<tr>
+				<th>Name</th>
+				<th>Price</th>
+				<th>Quantity</th>
+			</tr>
+			${lineItems.map(lineItem => `
+				<tr>
+					<td>${lineItem.product_name}</td>
+					<td>${lineItem.frozen_price}</td>
+					<td>${lineItem.quantity}</td>
+				</tr>
+			`)}
+		</table>
 	`;
 	document
 		.getElementById('modal-content-placeholder')

@@ -16,6 +16,7 @@ function list_orders($pdo) {
 			o.card_zipcode,
 			o.phone_number,
 			o.tracking_number,
+			o.shipped_at,
 			SUM(oli.frozen_price * oli.quantity) AS total_price,
 			IF(
 				COUNT(oli.id) = 0,
@@ -60,6 +61,7 @@ function list_orders_for_customer($pdo, $email) {
 			o.card_zipcode,
 			o.phone_number,
 			o.tracking_number,
+			o.shipped_at,
 			SUM(oli.frozen_price * oli.quantity) AS total_price,
 			IF(
 				COUNT(oli.id) = 0,
@@ -106,6 +108,7 @@ function get_order_details($pdo, $order_id) {
 			o.card_zipcode,
 			o.phone_number,
 			o.tracking_number,
+			o.shipped_at,
 			SUM(oli.frozen_price * oli.quantity) AS total_price,
 			IF(
 				COUNT(oli.id) = 0,

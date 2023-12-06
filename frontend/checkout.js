@@ -1,6 +1,9 @@
 let products;
 let cart;
 (async () => {
+	if (!localStorage.getItem('email')) {
+		throw new Error('Not logged in! Please go back and log in first.');
+	}
 	products = Object.fromEntries(
 		(await api.getProducts()).map(product => [
 			product.id,
@@ -33,7 +36,7 @@ function getInput(elementId) {
 
 async function placeOrder() {
 	const order = {
-		email: localStorage.getItem('email') ?? 'NOT LOGGED IN',
+		email: localStorage.getItem('email'),
 		shipping_address: getInput('shipping-address'),
 		name_on_card: getInput('name-on-card'),
 		card_number: getInput('card-number'),
