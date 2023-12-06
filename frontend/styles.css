@@ -18,11 +18,6 @@
 	font-size: 17px;
 }
 
-.navbar a.active, .navbar a:hover {
-	background-color: rgb(173, 124, 0);
-	color: white;
-}
-
 .navbar-right {
 	float: right;
 	white-space: nowrap;
@@ -52,6 +47,13 @@
 	justify-content: flex-end;
 }
 
+.gold, .navbar a.active, .navbar a:hover {
+	background-color: rgb(173, 124, 0);
+	color: white;
+	border-width: 0;
+	box-shadow: 0 4px 8px 0 rgba(143, 117, 51, 0.5), 0 6px 20px 0 rgba(143, 117, 51, 0.5);
+}
+
 .error {
 	color: red;
 }
@@ -60,7 +62,8 @@
 	cursor: pointer;
 }
 .clicky:hover {
-	background-color: rgb(173, 124, 0);
+	background-color: rgb(58, 65, 77);
+	box-shadow: 0 4px 8px 0 rgba(57, 63, 74, 1), 0 6px 20px 0 rgba(57, 63, 74, 1);
 }
 
 .right-center {
@@ -70,7 +73,7 @@
 }
 
 .sub-header {
-	color: #999;
+	color: #999 !important;
 }
 
 .white-gold {
@@ -87,16 +90,20 @@ body {
 	background-color: #222;
 	color: #eee;
 	padding: 16px;
+	cursor: default;
 }
 
 table, table th, table td {
 	border-collapse: collapse;
-	border: 1px solid rgb(57,63,74);
+	border: 1px solid rgb(57, 63, 74);
 	padding: 12px;
 }
 
 .banded-table tbody:nth-of-type(even) {
 	background-color: rgb(42, 46, 54);
+}
+.banded-table tbody:nth-of-type(odd) {
+	background-color: rgb(33, 35, 38);
 }
 
 a:link, a:visited {
@@ -109,13 +116,13 @@ h1 {
 
 button, input, textarea {
 	background-color: #222;
-	border-color: #ddd;
+	border-color: rgb(57, 63, 74);
 	border-style: solid;
 	border-width: thin;
-	padding: 8px;
+	padding: 12px;
 	margin: 4px;
 	color: #ddd;
-	box-shadow: 0 4px 8px 0 rgba(57, 63, 74, 1), 0 6px 10px 0 rgba(57, 63, 74, 1);
+	box-shadow: 0 4px 8px 0 rgba(57, 63, 74, 1), 0 6px 20px 0 rgba(57, 63, 74, 1);
 }
 
 button, input[type=button], input[type=submit] {

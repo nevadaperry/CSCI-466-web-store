@@ -12,7 +12,7 @@
 	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 	<script src="api.js"></script>
 	<script defer src="login-indicator.js"></script>
-	<script defer src="confirmation.js"></script>
+	<script defer src="cart.js"></script>
 </head>
 
 <body>
@@ -32,7 +32,7 @@
 	<h1>Shopping cart</h1>
 	<p><p>
 	<label for="cart-items">Contents</label>
-	<table id="cart-items">
+	<table id="cart-items" class="banded-table">
 		<tr>
 			<th>Part name</th>
 			<th>Price</th>
@@ -41,34 +41,9 @@
 		<span id="cart-items-placeholder">Loading...</span>
 	</table>
 	<br>
-	<form onsubmit="placeOrder(); return false" class="right-center">
-		<label for="shipping-address">Shipping address</label>
-		<textarea
-			id="shipping-address"
-			placeholder="Recipient Name&#10;123 Gravel Rd Unit 345&#10;McKinney, AL 98103"
-			rows="3"
-		></textarea>
-		<br>
-		<label for="phone-number">Phone number of recipient</label>
-		<input type="text" id="phone-number">
-		<br>
-		<label for="name-on-card">Name on card</label>
-		<input type="text" id="name-on-card">
-		<br>
-		<label for="card-number">Card number</label>
-		<input type="text" id="card-number">
-		<br>
-		<label for="card-exp">Card expiration date</label>
-		<input type="text" id="card-exp" placeholder="MM/YY">
-		<br>
-		<label for="card-cvv">Card security code</label>
-		<input type="text" id="card-cvv">
-		<br>
-		<label for="card-zipcode">Zipcode on billing address</label>
-		<input type="text" id="card-zipcode">
-		<br>
-		<button>Place order</button>
-	</form>
+	<button class="gold" onclick="window.location.href = 'checkout.html'">
+		Continue to checkout
+	</button>
 </div>
 </body>
 </html>

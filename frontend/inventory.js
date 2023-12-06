@@ -24,9 +24,9 @@ async function openModal(productId) {
 	const productDetails = products.find(product => product.id === productId);
 	const modalLoadedContent = document.getElementById('modal-loaded-content');
 	modalLoadedContent.innerHTML = `
-		<div>${productDetails.name}</div>
+		<div><h2>${productDetails.name}</h2></div>
 		<div>
-			<a href="details.html?productId=${productId}">
+			<a href="details.html?productId=${productId}" class="sub-header">
 				View customer-facing page for this product
 			</a>
 		</div>
