@@ -10,7 +10,9 @@ CREATE TABLE product (
 	name text NOT NULL,
 	description text NOT NULL,
 	price numeric(9,2) NOT NULL,
-	stock int NOT NULL
+	stock int NOT NULL,
+	CONSTRAINT product_min_price CHECK (price >= 0.50),
+	CONSTRAINT product_min_stock CHECK (stock >= 0)
 );
 
 CREATE TABLE `order` (
@@ -38,7 +40,9 @@ CREATE TABLE order_line_item (
 	order_id bigint NOT NULL REFERENCES `order` (id),
 	product_id bigint NOT NULL REFERENCES product (id),
 	frozen_price numeric(9,2) NOT NULL,
-	quantity int NOT NULL
+	quantity int NOT NULL,
+	CONSTRAINT order_line_item_min_price CHECK (frozen_price >= 0.50),
+	CONSTRAINT order_line_item_min_quantity CHECK (quantity > 0)
 );
 CREATE INDEX order_line_item_order_id ON order_line_item (order_id);
 

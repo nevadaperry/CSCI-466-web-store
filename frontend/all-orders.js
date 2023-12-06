@@ -39,7 +39,26 @@ async function openModal(orderId) {
 		<div>
 			Tracking number: ${order.tracking_number ?? 'Not yet shipped.'}
 		</div>
-		
+		<br>
+		<div>
+			Order total: $${order.total_price}
+		</div>
+		<br>
+		<label for="order-line-items">Line items</label>
+		<table id="order-line-items">
+			<tr>
+				<th>Name</th>
+				<th>Price</th>
+				<th>Quantity</th>
+			</tr>
+			${lineItems.map(lineItem => `
+				<tr>
+					<td>${lineItem.product_name}</td>
+					<td>${lineItem.frozen_price}</td>
+					<td>${lineItem.quantity}</td>
+				</tr>
+			`)}
+		</table>
 	`;
 	document
 		.getElementById('modal-content-placeholder')
