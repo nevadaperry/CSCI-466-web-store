@@ -25,13 +25,13 @@ CREATE TABLE `order` (
 	tracking_number text,
 	placed_at timestamp NOT NULL DEFAULT now(),
 	shipped_at timestamp,
+	customer_id bigint NOT NULL REFERENCES customer (id),
 	CONSTRAINT tracking_number_includes_timestamp CHECK (
 		(tracking_number IS NOT NULL AND shipped_at IS NOT NULL)
 		OR (tracking_number IS NULL AND shipped_at IS NULL)
 	)
-	customer_id bigint NOT NULL REFERENCES customer (id)
 );
-CREATE INDEX order_customer_id ON order (customer_id);
+CREATE INDEX order_customer_id ON `order` (customer_id);
 
 CREATE TABLE order_line_item (
 	id bigint PRIMARY KEY AUTO_INCREMENT,

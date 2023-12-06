@@ -12,6 +12,11 @@ $method = $_SERVER['REQUEST_METHOD'];
 $uri = $_SERVER['REQUEST_URI'];
 $pdo = connect_to_db();
 
+if (preg_match('/^\/\~z1976298\/router\.php/', $uri)) {
+	// Make university hosted PHP act like PHP's built-in web server
+	$uri = substr($uri, 21);
+}
+
 if ("{$method} {$uri}" == 'GET /') {
 	print 'You\'ve reached web-store\'s backend API. To see the route list, check api.js on the frontend.';
 }

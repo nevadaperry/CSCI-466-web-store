@@ -2,6 +2,7 @@ let customersOrders;
 (async () => {
 	const email = localStorage.getItem('email');
 	if (!email) {
+		window.location = 'login.html?returnTo=customer-orders.html'
 		throw new Error('Not logged in! Please go back and log in first.');
 	}
 	customersOrders = await api.getOrdersForCustomer(email);
