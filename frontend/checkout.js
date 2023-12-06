@@ -47,5 +47,6 @@ async function placeOrder() {
 		})),
 	};
 	const orderId = await api.postOrder(order);
+	localStorage.setItem('cart', '{}');
 	window.location = `confirmation.html?orderId=${orderId}`;
 }
