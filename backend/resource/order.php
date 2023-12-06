@@ -38,26 +38,33 @@ function list_orders() {
 
 function post_order($order) {
 	return query_db("
-		WITH inserted AS (
-			INSERT INTO `order` (
-				shipping_address,
-				name_on_card,
-				card_number,
-				card_exp,
-				card_cvv,
-				card_zipcode,
-				phone_number
-			) VALUES (
-				?,
-				?,
-				?,
-				?,
-				?,
-				?,
-				?
-			);
-			SELECT last_insert_id();
+		INSERT INTO customer (email) VALUES (
+			?
+		) ON DUPLICATE KEY UPDATE id = id;
+		
+		INSERT INTO `order` (
+			customer_id,
+			shipping_address,
+			name_on_card,
+			card_number,
+			card_exp,
+			card_cvv,
+			card_zipcode,
+			phone_number
 		)
+		SELECT
+			inserted_customer.id,
+			?,
+			?,
+			?,
+			?,
+			?,
+			?,
+			?
+		FROM (
+			SELECT id FROM customer WHERE email = ?
+		) inserted_customer;
+		
 		INSERT INTO order_line_item (
 			order_id,
 			product_id,
@@ -65,21 +72,25 @@ function post_order($order) {
 			quantity
 		)
 		SELECT
-			inserted.id,
+			inserted_order.id,
 			line_item.product_id,
 			product.price,
 			line_item.quantity
-		FROM json_table(
+		FROM (
+			SELECT id FROM `order` ORDER BY id DESC LIMIT 1
+		) inserted_order
+		LEFT JOIN json_table(
 			?,
 			'$[*]' columns (
-				order_id bigint PATH '$.order_id',
 				product_id bigint PATH '$.product_id',
-				price decimal(9,2) PATH '$.price',
 				quantity int PATH '$.quantity'
 			)
-		) AS line_item
-		JOIN product ON line_item.product_id = product.id
+		) AS line_item ON TRUE
+		JOIN product ON line_item.product_id = product.id;
+		
+		SELECT id FROM `order` ORDER BY id DESC LIMIT 1;
 	", [
+		$order['email'],
 		$order['shipping_address'],
 		$order['name_on_card'],
 		$order['card_number'],
@@ -87,6 +98,7 @@ function post_order($order) {
 		$order['card_cvv'],
 		$order['card_zipcode'],
 		$order['phone_number'],
+		$order['email'],
 		json_encode($order['line_items'])
-	]);
+	]);//[0]['id'];
 }
