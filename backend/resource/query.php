@@ -17,7 +17,7 @@ function connect_to_db() {
 function query_db($pdo, $query, $args = []) {
 	$statement = $pdo->prepare($query);
 	$statement->execute($args);
-	$rows = $statement->fetchAll(PDO::FETCH_CLASS);
+	$rows = $statement->fetchAll(PDO::FETCH_ASSOC);
 	return $rows;
 }
 
