@@ -80,13 +80,13 @@ function post_order($order) {
 		) AS line_item
 		JOIN product p ON line_item.product_id = p.id
 	", [
-		$order.shipping_address,
-		$order.name_on_card,
-		$order.card_number,
-		$order.card_exp,
-		$order.card_cvv,
-		$order.card_zipcode,
-		$order.phone_number,
-		$order.line_items
+		$order['shipping_address'],
+		$order['name_on_card'],
+		$order['card_number'],
+		$order['card_exp'],
+		$order['card_cvv'],
+		$order['card_zipcode'],
+		$order['phone_number'],
+		$order['line_items']
 	]);
 }
