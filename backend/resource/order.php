@@ -2,8 +2,8 @@
 
 include_once "query.php";
 
-function listOrders() {
-	return queryDb("
+function list_orders() {
+	return query_db("
 		SELECT
 			o.id,
 			o.shipping_address,

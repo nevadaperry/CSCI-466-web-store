@@ -2,11 +2,19 @@
 	display: none;
 }
 
-table {
-	border-collapse: collapse;
-	border: 1px solid black;
+.error {
+	color: red;
 }
 
-table th, table td {
+.clicky {
+	cursor: pointer;
+}
+
+body {
+	font-family: sans-serif;
+}
+
+table, table th, table td {
 	border: 1px solid black;
+	cursor: default;
 }

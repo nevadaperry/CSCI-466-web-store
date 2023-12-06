@@ -3,47 +3,32 @@
 	<title>Inventory For Group 108</title>
 	<meta charset="UTF-8" />
 	<link rel="stylesheet" href="styles.css">
+	<link rel="stylesheet" href="modal.css">
 	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 	<script src="api.js"></script>
-	<script>
-		(async () => {
-			const products = await api.getProducts();
-			for (const product of products) {
-				document.getElementById('products').insertAdjacentHTML(
-					'beforeend',
-					`<tr>
-						<td>
-							<input
-								type="radio"
-								name="selected"
-								value="${product.id}"
-								id="${product.id}"
-							>
-						</td>
-						<td>${product.name}</td>
-						<td>${product.price}</td>
-						<td>${product.stock}</td>
-					</tr>`
-				);
-			}
-			removePlaceholders();
-		})();
-	</script>
+	<script defer src="inventory.js"></script>
 </head>
 <body>
 	<noscript>JavaScript must be enabled.</noscript>
-	<form id="Inventory" method="post" action="details.php">
-		<br><label>Select a product for more information.</label><br>
+	<form method="get" action="details.html">
+		<label>Select a product for more information.</label>
 		<table id="products">
 			<tr>
-				<th></th>
-				<th>Part Name</th>
+				<th>Part name</th>
 				<th>Price</th>
 				<th>Number in stock</th>
 			</tr>
-			<div class="loading-placeholder">Loading...</div>
-		</table><br>
-		<input type="submit" value="Confirm" form="Inventory">
+			<span id="products-placeholder">Loading...</span>
+		</table>
+		<input type="submit" value="Confirm">
 	</form>
+	<button id="modal-open-button">Open Modal</button>
+	<div id="details-modal" class="modal">
+		<div class="modal-content">
+			<button id="modal-close-button">&times;</button>
+			<span id="modal-content-placeholder">Loading...</span>
+			<div id="modal-loaded-content"></div>
+		</div>
+	</div>
 </body>
 </html>

@@ -11,6 +11,10 @@ const api = {
 		method: 'GET',
 		url: `${apiUrl}/products`,
 	})).data,
+	getProductDetails: async productId => (await axios({
+		method: 'GET',
+		url: `${apiUrl}/products/${productId}`,
+	})).data,
 	getOrders: async () => (await axios({
 		method: 'GET',
 		url: `${apiUrl}/orders`,
@@ -21,21 +25,16 @@ const api = {
 window.onunhandledrejection = event => {
 	document.body.insertAdjacentHTML(
 		'afterbegin',
-		`Unhandled Promise rejection: ${event.reason}`,
+		`<span class="error">
+			Unhandled Promise rejection: ${event.reason}
+		</span>`,
 	);
 };
 window.onerror = (message, source, lineNumber, colno, error) => {
 	document.body.insertAdjacentHTML(
 		'afterbegin',
-		`Unhandled error: ${error.stack}`,
+		`<span class="error">
+			Unhandled error: ${error.stack}
+		</span>`,
 	);
 };
-
-function removePlaceholders() {
-	const placeholders = document.getElementsByClassName(
-		'loading-placeholder',
-	);
-	for (const placeholder of placeholders) {
-		placeholder.classList.add('done-loading');
-	}
-}
