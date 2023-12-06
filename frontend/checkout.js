@@ -1,4 +1,5 @@
 let products;
+let cartItems;
 (async () => {
 	products = Object.fromEntries(
 		(await api.getProducts()).map(product => [
@@ -6,10 +7,11 @@ let products;
 			product
 		])
 	);
-	const cartItems = JSON.parse(localStorage.getItem('cartItems') ?? '[]');
-	cartItems.push({id: 19, quantity: 1});
+	cartItems = JSON.parse(localStorage.getItem('cartItems') ?? '[]');
+	cartItems.push({productId: 19, quantity: 2});
+	cartItems.push({productId: 14, quantity: 3});
 	for (const cartItem of cartItems) {
-		const product = products[cartItem.id];
+		const product = products[cartItem.productId];
 		document.getElementById('cart-items').insertAdjacentHTML(
 			'beforeend',
 			`
@@ -27,4 +29,24 @@ let products;
 		.add('done-loading');
 })();
 
-document.getElementById('email').value = localStorage.getItem('email') ?? 'abczxc';
+function getInput(elementId) {
+	return document.getElementById(elementId).value;
+}
+
+async function placeOrder() {
+	const order = {
+		shipping_address: getInput('shipping-address'),
+		name_on_card: getInput('name-on-card'),
+		card_number: getInput('card-number'),
+		card_exp: getInput('card-exp'),
+		card_cvv: getInput('card-cvv'),
+		card_zipcode: getInput('card-zipcode'),
+		phone_number: getInput('phone-number'),
+		line_items: cartItems.map(cartItem => ({
+			product_id: cartItem.productId,
+			quantity: cartItem.quantity,
+		})),
+	};
+	const orderId = await api.postOrder(order);
+	window.location = `confirmation.html?orderId=${orderId}`;
+}

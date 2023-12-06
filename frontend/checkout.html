@@ -39,20 +39,34 @@
 		</tr>
 		<span id="cart-items-placeholder">Loading...</span>
 	</table>
-	<form onsubmit="void(0); return false" class="right-center">
+	<br>
+	<form onsubmit="placeOrder(); return false" class="right-center">
+		<label for="shipping-address">Shipping address</label>
+		<textarea
+			id="shipping-address"
+			placeholder="Recipient Name&#10;123 Gravel Rd Unit 345&#10;McKinney, AL 98103"
+			rows="3"
+		></textarea>
+		<br>
+		<label for="phone-number">Phone number of recipient</label>
+		<input type="text" id="phone-number">
+		<br>
+		<label for="name-on-card">Name on card</label>
+		<input type="text" id="name-on-card">
+		<br>
 		<label for="card-number">Card number</label>
 		<input type="text" id="card-number">
 		<br>
-		<label for="card-number">Card expiration date</label>
-		<input type="text" id="card-exp-date" placeholder="MM/YY">
+		<label for="card-exp">Card expiration date</label>
+		<input type="text" id="card-exp" placeholder="MM/YY">
 		<br>
-		<label for="card-number">Card security code</label>
+		<label for="card-cvv">Card security code</label>
 		<input type="text" id="card-cvv">
 		<br>
-		<label for="card-number">Zipcode on billing address</label>
+		<label for="card-zipcode">Zipcode on billing address</label>
 		<input type="text" id="card-zipcode">
 		<br>
-		<button>Submit</button>
+		<button>Place order</button>
 	</form>
 </body>
 </html>

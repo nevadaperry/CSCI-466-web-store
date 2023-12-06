@@ -23,7 +23,7 @@ const email = localStorage.getItem('email');
 const loginStatus = document.getElementById('login-status');
 if (email === null) {
 	loginStatus.innerHTML = `
-		<a href="login.html">Log in</a>
+		Not logged in. <a href="login.html">Log in</a>
 	`;
 } else {
 	loginStatus.innerHTML = `

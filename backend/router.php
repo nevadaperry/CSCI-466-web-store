@@ -4,6 +4,7 @@ include_once "resource/product.php";
 include_once "resource/order.php";
 
 header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Headers: Content-Type, Origin, Accept');
 header('Access-Control-Allow-Methods: OPTIONS, TRACE, GET, HEAD, POST, PUT');
 
 $method = $_SERVER['REQUEST_METHOD'];
@@ -26,6 +27,10 @@ else if (preg_match('/^PUT \/products\/[0-9]+$/', "{$method} {$uri}")) {
 }
 else if ("{$method} {$uri}" == 'GET /orders') {
 	print json_encode(list_orders());
+}
+else if ("{$method} {$uri}" == 'POST /orders') {
+	$order = file_get_contents('php://input');
+	print json_encode(post_order(json_decode($order)));
 }
 else if ("{$method} {$uri}" == 'GET /smoothie') {
 	print 'Here is a smoothie';

@@ -24,6 +24,11 @@ const api = {
 		method: 'GET',
 		url: `${apiUrl}/orders`,
 	})).data,
+	postOrder: async (order) => (await axios({
+		method: 'POST',
+		url: `${apiUrl}/orders`,
+		data: order
+	})).data,
 };
 
 // https://stackoverflow.com/a/62475924/15295209

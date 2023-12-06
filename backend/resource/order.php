@@ -35,3 +35,58 @@ function list_orders() {
 		GROUP BY 1
 	");
 }
+
+function post_order($order) {
+	return query_db("
+		WITH inserted AS (
+			INSERT INTO `order` (
+				shipping_address,
+				name_on_card,
+				card_number,
+				card_exp,
+				card_cvv,
+				card_zipcode,
+				phone_number
+			) VALUES (
+				?,
+				?,
+				?,
+				?,
+				?,
+				?,
+				?
+			)
+			RETURNING id
+		)
+		INSERT INTO order_line_item (
+			order_id,
+			product_id,
+			frozen_price,
+			quantity
+		)
+		SELECT
+			inserted.id AS order_id,
+			line_item.product_id,
+			p.price AS frozen_price,
+			line_item.quantity
+		FROM json_table(
+			?,
+			'$[*]' columns (
+				order_id bigint PATH '$.order_id',
+				product_id bigint PATH '$.product_id',
+				price decimal(9,2) PATH '$.price',
+				quantity int PATH '$.quantity'
+			)
+		) AS line_item
+		JOIN product p ON line_item.product_id = p.id
+	", [
+		$order.shipping_address,
+		$order.name_on_card,
+		$order.card_number,
+		$order.card_exp,
+		$order.card_cvv,
+		$order.card_zipcode,
+		$order.phone_number,
+		$order.line_items
+	]);
+}
