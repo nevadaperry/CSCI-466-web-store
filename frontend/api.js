@@ -11,9 +11,14 @@ const api = {
 		method: 'GET',
 		url: `${apiUrl}/products`,
 	})).data,
-	getProductDetails: async productId => (await axios({
+	getProductDetails: async (productId) => (await axios({
 		method: 'GET',
 		url: `${apiUrl}/products/${productId}`,
+	})).data,
+	setProductStock: async (productId, stock) => (await axios({
+		method: 'PUT',
+		url: `${apiUrl}/products/${productId}`,
+		data: stock,
 	})).data,
 	getOrders: async () => (await axios({
 		method: 'GET',

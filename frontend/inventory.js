@@ -1,7 +1,3 @@
-function selectRadio(productId) {
-	document.getElementById(`radio-${productId}`).checked = true;
-}
-
 let products;
 (async () => {
 	products = await api.getProducts();
@@ -9,7 +5,7 @@ let products;
 		document.getElementById('products').insertAdjacentHTML(
 			'beforeend',
 			`
-				<tr onclick="openModal(${product.id})">
+				<tr onclick="openModal(${product.id})" class="clicky">
 					<td>${product.name}</td>
 					<td>${product.price}</td>
 					<td>${product.stock}</td>
@@ -25,26 +21,43 @@ let products;
 
 // Courtesy of https://www.w3schools.com/howto/howto_css_modals.asp
 const detailsModal = document.getElementById('details-modal');
-const closeButton = document.getElementById('modal-close-button');
-closeButton.onclick = () => detailsModal.style.display = 'none';
 window.onclick = event => {
 	if (event.target === detailsModal) {
 		detailsModal.style.display = 'none';
 	}
 }
+document.addEventListener('keydown', (event) => {
+	if (event.key === 'Escape') {
+		detailsModal.style.display = 'none';
+	}
+})
 
 async function openModal(productId) {
 	detailsModal.style.display = 'block';
 	//const productDetails = await api.getProductDetails(productId);
 	const productDetails = products.find(product => product.id === productId);
 	const modalLoadedContent = document.getElementById('modal-loaded-content');
-	modalLoadedContent.outerHTML = `
-		<div id="modal-loaded-content">
-			Hello!
-		</div>
+	modalLoadedContent.innerHTML = `
+		<div>${productDetails.name}</div>
+		<br>
+		<div>$${productDetails.price}</div>
+		<br>
+		<div>${productDetails.stock} in stock</div>
+		<form onclick="updateStock(${productId}); return false">
+			<input type="text" id="new-stock" placeholder="Change qty...">
+			<label for="new-stock"></label>
+			<input type="submit" value="Update">
+		</form>
+		<div>${productDetails.description}</div>
 	`;
 	document
 		.getElementById('modal-content-placeholder')
 		.classList
 		.add('done-loading');
+}
+
+async function updateStock(productId) {
+	const newStock = document.getElementById('new-stock').value;
+	await api.setProductStock(productId, newStock);
+	window.location.reload();
 }

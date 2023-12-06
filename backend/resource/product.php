@@ -17,8 +17,16 @@ function get_product_details($product_id) {
 			price,
 			stock
 		FROM product
-		WHERE id = {$product_id}
-	");
+		WHERE id = ?
+	", [$product_id]);
+}
+
+function set_product_stock($product_id, $stock) {
+	return query_db("
+		UPDATE product
+		SET stock = ?
+		WHERE id = ?
+	", [$stock, $product_id]);
 }
 
 ?>
