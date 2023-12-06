@@ -44,7 +44,7 @@ async function detail(productId) {
 		<br>
 		<div>${productDetails.stock} in stock</div>
 		<form onsubmit="addQtyToCart(${productId}); return false">
-			<input type="number" id="qty" value="1">
+			<input type="number" id="qty" value="1" min="1">
 			<label for="qty">Qty.</label>
 			<input type="submit" value="Add to cart">
 		</form>

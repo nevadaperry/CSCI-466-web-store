@@ -213,6 +213,20 @@ function post_order($pdo, $order) {
 		json_encode($order['line_items'])
 	]);
 	
+	query_db($pdo, "
+		UPDATE product
+		JOIN json_table(
+			?,
+			'$[*]' COLUMNS (
+				product_id bigint PATH '$.product_id',
+				quantity int PATH '$.quantity'
+			)
+		) AS line_item ON line_item.product_id = product.id
+		SET product.quantity = product.quantity - line_item.quantity
+	", [
+		json_encode($order['line_items'])
+	]);
+	
 	$order_id = query_db($pdo, "
 		SELECT id FROM `order` ORDER BY id DESC LIMIT 1
 	")[0]['id'];

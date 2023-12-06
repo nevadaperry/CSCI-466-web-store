@@ -24,6 +24,7 @@ let cart;
 					<input
 						type="number"
 						value="${quantity}"
+						min="0"
 						id="qty-${productId}"
 						onchange="handleQtyChange(${productId})"
 					>
