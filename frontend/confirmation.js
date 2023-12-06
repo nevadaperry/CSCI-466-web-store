@@ -1,10 +1,4 @@
 (async () => {
-	const products = Object.fromEntries(
-		(await api.getProducts()).map(product => [
-			product.id,
-			product
-		])
-	);
 	const urlParams = new URLSearchParams(window.location.search);
 	const orderId = +urlParams.get('orderId');
 	const order = await api.getOrderDetails(orderId);
@@ -12,7 +6,6 @@
 	console.log('hi', JSON.stringify(order, null, 2));
 	const lineItems = JSON.parse(order.line_items);
 	for (const lineItem of lineItems) {
-		const product = products[lineItem.product_id];
 		document.getElementById('order-items').insertAdjacentHTML(
 			'beforeend',
 			`

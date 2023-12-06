@@ -7,6 +7,7 @@ function list_orders($pdo) {
 		SELECT
 			o.id,
 			o.customer_id,
+			o.placed_at,
 			o.shipping_address,
 			o.name_on_card,
 			o.card_number,
@@ -45,11 +46,12 @@ function list_orders($pdo) {
 	");
 }
 
-function list_orders_for_customer($pdo) {
+function list_orders_for_customer($pdo, $customer_id) {
 	return query_db($pdo, "
 		SELECT
 			o.id,
 			o.customer_id,
+			o.placed_at,
 			o.shipping_address,
 			o.name_on_card,
 			o.card_number,
@@ -94,6 +96,7 @@ function get_order_details($pdo, $email) {
 		SELECT
 			o.id,
 			o.customer_id,
+			o.placed_at,
 			o.shipping_address,
 			o.name_on_card,
 			o.card_number,

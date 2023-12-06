@@ -23,28 +23,18 @@ let customersOrders;
 		.add('done-loading');
 })();
 
-async function openModal(productId) {
+async function openModal(orderId) {
 	detailsModal.style.display = 'block';
-	const productDetails = products.find(product => product.id === productId);
+	const orderDetails = orders.find(order => order.id === orderId);
 	const modalLoadedContent = document.getElementById('modal-loaded-content');
 	modalLoadedContent.innerHTML = `
-		<div><h2>${productDetails.name}</h2></div>
-		<div>
-			<a href="index.html?productId=${productId}" class="sub-header">
-				View customer-facing page for this product
-			</a>
-		</div>
+		<div><h2>${orderDetails.name}</h2></div>
 		<br>
-		<div>$${productDetails.price}</div>
+		<div>$${orderDetails.price}</div>
 		<br>
-		<div>${productDetails.stock} in stock</div>
-		<form onsubmit="updateStock(${productId}); return false">
-			<input type="text" id="new-stock" placeholder="Change qty...">
-			<label for="new-stock"></label>
-			<input type="submit" value="Update stock">
-		</form>
+		<div>${orderDetails.stock} in stock</div>
 		<br>
-		<div>${productDetails.description}</div>
+		<div>${orderDetails.description}</div>
 	`;
 	document
 		.getElementById('modal-content-placeholder')

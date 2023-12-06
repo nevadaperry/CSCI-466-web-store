@@ -37,7 +37,7 @@ else if ("{$method} {$uri}" == 'GET /orders') {
 	print json_encode(list_orders($pdo));
 }
 else if (preg_match(
-	'/^GET \/orders-for-customer\/[0-9]+$/',
+	'/^GET \/orders-for-customer\/.+$/',
 	"{$method} {$uri}"
 )) {
 	$email = explode('/', $uri)[2];
