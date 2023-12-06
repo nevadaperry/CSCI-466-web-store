@@ -19,31 +19,22 @@ let products;
 		.add('done-loading');
 })();
 
-// Courtesy of https://www.w3schools.com/howto/howto_css_modals.asp
-const detailsModal = document.getElementById('details-modal');
-window.onclick = event => {
-	if (event.target === detailsModal) {
-		detailsModal.style.display = 'none';
-	}
-}
-document.addEventListener('keydown', (event) => {
-	if (event.key === 'Escape') {
-		detailsModal.style.display = 'none';
-	}
-})
-
 async function openModal(productId) {
 	detailsModal.style.display = 'block';
-	//const productDetails = await api.getProductDetails(productId);
 	const productDetails = products.find(product => product.id === productId);
 	const modalLoadedContent = document.getElementById('modal-loaded-content');
 	modalLoadedContent.innerHTML = `
 		<div>${productDetails.name}</div>
+		<div>
+			<a href="details.html?productId=${productId}">
+				View customer-facing page for this product
+			</a>
+		</div>
 		<br>
 		<div>$${productDetails.price}</div>
 		<br>
 		<div>${productDetails.stock} in stock</div>
-		<form onclick="updateStock(${productId}); return false">
+		<form onsubmit="updateStock(${productId}); return false">
 			<input type="text" id="new-stock" placeholder="Change qty...">
 			<label for="new-stock"></label>
 			<input type="submit" value="Update">
@@ -61,3 +52,16 @@ async function updateStock(productId) {
 	await api.setProductStock(productId, newStock);
 	window.location.reload();
 }
+
+// Courtesy of https://www.w3schools.com/howto/howto_css_modals.asp
+const detailsModal = document.getElementById('details-modal');
+window.onclick = event => {
+	if (event.target === detailsModal) {
+		detailsModal.style.display = 'none';
+	}
+}
+document.addEventListener('keydown', (event) => {
+	if (event.key === 'Escape') {
+		detailsModal.style.display = 'none';
+	}
+})
