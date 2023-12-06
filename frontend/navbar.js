@@ -1,3 +1,17 @@
+// Basically a web component framework
+document.getElementById('main-navbar').innerHTML = `
+	<a href="index.html"><h2 class="logo">Saks 108th Avenue</h2></a>
+	<a href="inventory.html">Inventory</a>
+
+	<div class="navbar-right">
+		<a href="cart.html">
+			<span class="vert-top">Cart</span>
+			<img src="img/shopping-cart-light.png">
+		</a>
+		<span id="login-status" class="sub-header">Loading login status</span>
+	</div>
+`;
+
 const email = localStorage.getItem('email');
 const loginStatus = document.getElementById('login-status');
 const currentPage = window.location.href.split('/').at(-1);

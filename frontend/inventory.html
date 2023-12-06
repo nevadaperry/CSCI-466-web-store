@@ -12,24 +12,13 @@
 	<!-- JavaScript -->
 	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 	<script src="api.js"></script>
-	<script defer src="login-indicator.js"></script>
+	<script defer src="navbar.js"></script>
 	<script defer src="inventory.js"></script>
 </head>
 
 <body>
 <!-- Top of page header-->
-<div class="navbar">
-	<a href="index.html"><h2 class="logo">Saks 108th Avenue</h2></a>
-	<a href="inventory.html">Inventory</a>
-
-	<div class="navbar-right">
-		<a href="cart.html">
-			<span class="vert-top">Cart</span>
-			<img src="img/shopping-cart-light.png">
-		</a>
-		<span id="login-status" class="sub-header">Loading login status</span>
-	</div>
-</div>
+<div class="navbar" id="main-navbar"></div>
 
 <div class="content">
 	<noscript>JavaScript must be enabled.</noscript>
