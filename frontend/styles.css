@@ -19,6 +19,14 @@
 	margin: auto;
 }
 
+.sub-header {
+	color: #999;
+}
+
+.white-gold {
+	color: rgb(255, 235, 185);
+}
+
 body {
 	max-width: max-content;
 	margin: auto;
@@ -35,4 +43,8 @@ table, table th, table td {
 
 a:link, a:visited {
 	color: rgb(0, 197, 0);
+}
+
+h1 {
+	margin-bottom: 0;
 }
