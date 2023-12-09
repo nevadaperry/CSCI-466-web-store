@@ -186,6 +186,25 @@ function post_order($pdo, $order) {
 		$order['email']
 	]);
 	
+	// MariaDB 10.5 compatible replacement for json_table
+	// Safe against SQL injection because user data is still parameterized
+	$line_item_values = [];
+	foreach ($order['line_items'] as $line_item) {
+		array_push(
+			$line_item_values,
+			$line_item['product_id'],
+			$line_item['quantity']
+		);
+	}
+	$line_item_selects = implode(
+		' UNION ALL ',
+		array_fill(
+			0,
+			count($order['line_items']),
+			'SELECT ? AS product_id, ? as quantity'
+		)
+	);
+	
 	query_db($pdo, "
 		INSERT INTO order_line_item (
 			order_id,
@@ -201,31 +220,19 @@ function post_order($pdo, $order) {
 		FROM (
 			SELECT id FROM `order` ORDER BY id DESC LIMIT 1
 		) inserted_order
-		LEFT JOIN json_table(
-			?,
-			'$[*]' COLUMNS (
-				product_id bigint PATH '$.product_id',
-				quantity int PATH '$.quantity'
-			)
+		LEFT JOIN (
+			{$line_item_selects}
 		) AS line_item ON TRUE
 		JOIN product ON line_item.product_id = product.id
-	", [
-		json_encode($order['line_items'])
-	]);
+	", line_item_values);
 	
 	query_db($pdo, "
 		UPDATE product
-		JOIN json_table(
-			?,
-			'$[*]' COLUMNS (
-				product_id bigint PATH '$.product_id',
-				quantity int PATH '$.quantity'
-			)
+		JOIN (
+			{$line_item_selects}
 		) AS line_item ON line_item.product_id = product.id
 		SET product.stock = product.stock - line_item.quantity
-	", [
-		json_encode($order['line_items'])
-	]);
+	", line_item_values);
 	
 	$order_id = query_db($pdo, "
 		SELECT id FROM `order` ORDER BY id DESC LIMIT 1
