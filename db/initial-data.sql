@@ -1,3 +1,5 @@
+/* PRODUCTS */
+
 INSERT INTO product (name, description, price, stock)
 VALUES (
 	'MaryRuth Organics, Herbal Supplement Drop, Calmness & Relaxation, Pack Of 1, USDA Kava Root, Sugar/Gluten Free, Support Sleep, Calm & Stress Relief, Vegan, Non-GMO, 30 Servings',
@@ -47,3 +49,203 @@ VALUES (
 	129.00,
 	25
 );
+
+/* CUSTOMERS */
+
+INSERT INTO customer (email)
+VALUES ('jkinny4@starnet.net');
+INSERT INTO customer (email)
+VALUES ('procurement@gfs.com');
+INSERT INTO customer (email)
+VALUES ('where.are.my.keys@outlook.com');
+INSERT INTO customer (email)
+VALUES ('alfonso.ribeiro@belair.ca.gov');
+INSERT INTO customer (email)
+VALUES ('touch.the.sky7@gmail.com');
+
+/* ORDERS */
+
+INSERT INTO `order` (
+	customer_id,
+	shipping_address,
+	name_on_card,
+	card_number,
+	card_exp,
+	card_cvv,
+	card_zipcode,
+	phone_number
+)
+SELECT
+	c.id,
+	'123 Rainbow Road, Bend, OR 97003',
+	'Jennifer Kinny',
+	'4111111111111111',
+	'08/28',
+	'998',
+	'97003',
+	'800-555-5555'
+FROM customer c
+WHERE c.email = 'jkinny4@starnet.net';
+INSERT INTO order_line_item (
+	order_id,
+	product_id,
+	frozen_price,
+	quantity
+)
+SELECT
+	o.id,
+	p.id,
+	p.price,
+	1
+FROM `order` o
+JOIN customer c ON o.customer_id = c.id
+JOIN product p ON p.name = 'Louis Vuitton Pre-Loved Monogram Canvas Montaigne MM, Brown'
+WHERE c.email = 'jkinny4@starnet.net';
+
+INSERT INTO `order` (
+	customer_id,
+	shipping_address,
+	name_on_card,
+	card_number,
+	card_exp,
+	card_cvv,
+	card_zipcode,
+	phone_number
+)
+SELECT
+	c.id,
+	'123 Warehouse Rd, Wichita, KS 57331',
+	'Myra Westinghouse',
+	'4111111111111111',
+	'08/28',
+	'998',
+	'57331',
+	'800-555-5555'
+FROM customer c
+WHERE c.email = 'procurement@gfs.com';
+INSERT INTO order_line_item (
+	order_id,
+	product_id,
+	frozen_price,
+	quantity
+)
+SELECT
+	o.id,
+	p.id,
+	p.price,
+	1
+FROM `order` o
+JOIN customer c ON o.customer_id = c.id
+JOIN product p ON p.name like 'DEWALT 20V MAX Cordless Drill and Impact Driver%'
+WHERE c.email = 'procurement@gfs.com';
+
+INSERT INTO `order` (
+	customer_id,
+	shipping_address,
+	name_on_card,
+	card_number,
+	card_exp,
+	card_cvv,
+	card_zipcode,
+	phone_number
+)
+SELECT
+	c.id,
+	'332 Lampshade Pkwy, Jacksonville, FL 23345',
+	'Sustainable Living',
+	'4111111111111111',
+	'08/28',
+	'998',
+	'23345',
+	'800-555-5555'
+FROM customer c
+WHERE c.email = 'where.are.my.keys@outlook.com';
+INSERT INTO order_line_item (
+	order_id,
+	product_id,
+	frozen_price,
+	quantity
+)
+SELECT
+	o.id,
+	p.id,
+	p.price,
+	1
+FROM `order` o
+JOIN customer c ON o.customer_id = c.id
+JOIN product p ON p.name like 'Furhaven ThermaNAP Self-Warming Cat Bed%'
+WHERE c.email = 'where.are.my.keys@outlook.com';
+
+INSERT INTO `order` (
+	customer_id,
+	shipping_address,
+	name_on_card,
+	card_number,
+	card_exp,
+	card_cvv,
+	card_zipcode,
+	phone_number
+)
+SELECT
+	c.id,
+	'17 Winding Hill Dr, Bel Air, CA 90241',
+	'Alfonso Ribeiro',
+	'4111111111111111',
+	'08/28',
+	'998',
+	'90241',
+	'800-555-5555'
+FROM customer c
+WHERE c.email = 'alfonso.ribeiro@belair.ca.gov';
+INSERT INTO order_line_item (
+	order_id,
+	product_id,
+	frozen_price,
+	quantity
+)
+SELECT
+	o.id,
+	p.id,
+	p.price,
+	1
+FROM `order` o
+JOIN customer c ON o.customer_id = c.id
+JOIN product p ON p.name like 'ShelterLogic SuperMax All Purpose Outdoor 12 x 26-Feet Canopy Replacement Cover%'
+WHERE c.email = 'alfonso.ribeiro@belair.ca.gov';
+
+INSERT INTO `order` (
+	customer_id,
+	shipping_address,
+	name_on_card,
+	card_number,
+	card_exp,
+	card_cvv,
+	card_zipcode,
+	phone_number
+)
+SELECT
+	c.id,
+	'117 Eagle Circle, Terra Haute, IN 44271',
+	'Maureen Wall',
+	'4111111111111111',
+	'08/28',
+	'998',
+	'44271',
+	'800-555-5555'
+FROM customer c
+WHERE c.email = 'touch.the.sky7@gmail.com';
+INSERT INTO order_line_item (
+	order_id,
+	product_id,
+	frozen_price,
+	quantity
+)
+SELECT
+	o.id,
+	p.id,
+	p.price,
+	1
+FROM `order` o
+JOIN customer c ON o.customer_id = c.id
+JOIN product p ON p.name like 'Niceday Elliptical Machine, Elliptical Trainer%'
+WHERE c.email = 'touch.the.sky7@gmail.com';
