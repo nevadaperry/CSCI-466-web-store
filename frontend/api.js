@@ -39,6 +39,16 @@ const api = {
 		url: `${apiUrl}/orders`,
 		data: order
 	})).data,
+	addTrackingNumber: async (orderId, trackingNumber) => (await axios({
+		method: 'POST',
+		url: `${apiUrl}/orders/${orderId}/tracking-number`,
+		data: trackingNumber,
+	})).data,
+	addOrderNote: async (orderId, note) => (await axios({
+		method: 'POST',
+		url: `${apiUrl}/orders/${orderId}/note`,
+		data: note,
+	})).data,
 };
 
 // https://stackoverflow.com/a/62475924/15295209

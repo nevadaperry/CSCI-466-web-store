@@ -242,3 +242,18 @@ function post_order($pdo, $order) {
 	
 	return $order_id;
 }
+
+function add_order_tracking_number($pdo, $order_id, $tracking_number) {
+	return query_db($pdo, "
+		UPDATE `order`
+		SET tracking_number = ?, shipped_at = now()
+		WHERE id = ?
+	", [$tracking_number, $order_id]);
+}
+
+function add_order_note($pdo, $order_id, $note) {
+	return query_db($pdo, "
+		INSERT INTO order_note (order_id, content)
+		VALUES (?, ?)
+	", [$order_id, $note]);
+}

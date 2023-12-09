@@ -29,7 +29,16 @@ let customersOrders;
 async function openModal(orderId) {
 	detailsModal.style.display = 'block';
 	const order = customersOrders.find(order => order.id === orderId);
-	const lineItems = JSON.parse(order.line_items);
+	const lineItems = JSON.parse(order.line_items).map(lineItem => {
+		// Unknown why MariaDB returns line_items as a string rather than
+		// an associative array using PDO. In contrast, MySQL returns correctly.
+		if (typeof lineItem === 'string') {
+			return JSON.parse(lineItem);
+		} else {
+			return lineItem;
+		}
+	});
+	console.log(JSON.stringify(lineItems));
 	const modalLoadedContent = document.getElementById('modal-loaded-content');
 	modalLoadedContent.innerHTML = `
 		<div><h2>

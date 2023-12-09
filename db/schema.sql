@@ -26,7 +26,8 @@ CREATE TABLE `order` (
 	phone_number text NOT NULL,
 	tracking_number text,
 	placed_at timestamp NOT NULL DEFAULT now(),
-	shipped_at timestamp,
+	/* MySQL requires explicit nullability on timestamps for some reason */
+	shipped_at timestamp NULL,
 	customer_id bigint NOT NULL REFERENCES customer (id),
 	CONSTRAINT tracking_number_includes_timestamp CHECK (
 		(tracking_number IS NOT NULL AND shipped_at IS NOT NULL)

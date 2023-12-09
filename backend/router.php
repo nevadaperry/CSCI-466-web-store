@@ -13,7 +13,8 @@ $uri = $_SERVER['REQUEST_URI'];
 $pdo = connect_to_db();
 
 if (preg_match('/^\/\~z1976298\/router\.php/', $uri)) {
-	// Make university hosted PHP act like PHP's built-in web server
+	// Make university hosted PHP act like PHP's built-in web server by
+	// taking out the /z1976298/router.php part
 	$uri = substr($uri, 21);
 }
 
@@ -59,12 +60,27 @@ else if ("{$method} {$uri}" == 'POST /orders') {
 	$order = file_get_contents('php://input');
 	print json_encode(post_order($pdo, json_decode($order, true)));
 }
+else if (preg_match(
+	'/^POST \/orders\/[0-9]+\/tracking-number$/',
+	"{$method} {$uri}"
+)) {
+	$order_id = explode('/', $uri)[2];
+	print json_encode(get_order_details($pdo, $order_id, $note));
+}
+else if (preg_match(
+	'/^POST \/orders\/[0-9]+\/note$/',
+	"{$method} {$uri}"
+)) {
+	$order_id = explode('/', $uri)[2];
+	print json_encode(get_order_details($pdo, $order_id, $tracking_number));
+}
 else if ("{$method} {$uri}" == 'GET /smoothie') {
 	print 'Here is a smoothie';
 }
 else if ("{$method} {$uri}" == 'PUT /smoothie') {
 	print 'You put a smoothie';
-} else {
+}
+else {
 	throw new Exception("Unknown endpoint {$method} {$uri}");
 }
 
