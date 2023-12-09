@@ -6,7 +6,8 @@ function list_orders($pdo) {
 	return query_db($pdo, "
 		SELECT
 			o.id,
-			o.customer_id,
+			c.id,
+			c.email,
 			o.placed_at,
 			o.shipping_address,
 			o.name_on_card,
@@ -43,6 +44,7 @@ function list_orders($pdo) {
 		LEFT JOIN order_line_item oli ON oli.order_id = o.id
 		LEFT JOIN product p ON oli.product_id = p.id
 		LEFT JOIN order_note `on` ON `on`.order_id = o.id
+		JOIN customer c ON o.customer_id = c.id
 		GROUP BY 1
 	");
 }
@@ -51,7 +53,8 @@ function list_orders_for_customer($pdo, $email) {
 	return query_db($pdo, "
 		SELECT
 			o.id,
-			o.customer_id,
+			c.id,
+			c.email,
 			o.placed_at,
 			o.shipping_address,
 			o.name_on_card,
@@ -98,7 +101,8 @@ function get_order_details($pdo, $order_id) {
 	return query_db($pdo, "
 		SELECT
 			o.id,
-			o.customer_id,
+			c.id,
+			c.email,
 			o.placed_at,
 			o.shipping_address,
 			o.name_on_card,
@@ -135,6 +139,7 @@ function get_order_details($pdo, $order_id) {
 		LEFT JOIN order_line_item oli ON oli.order_id = o.id
 		LEFT JOIN product p ON oli.product_id = p.id
 		LEFT JOIN order_note `on` ON `on`.order_id = o.id
+		JOIN customer c ON o.customer_id = c.id
 		WHERE o.id = ?
 		GROUP BY 1
 	", [$order_id])[0];

@@ -24,9 +24,9 @@ if (email === null) {
 	`;
 } else {
 	loginStatus.innerHTML = `
-		<a class="align-top pad-heavy" href="customer-orders.html">
+		<span class="align-top pad-heavy">
 			Logged in as <span class="white-gold">${email}</span>
-		</a>
+		</span>
 		<span><a href="#" onclick="logOut()">Log out</a></span>
 	`;
 }

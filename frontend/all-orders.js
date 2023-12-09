@@ -14,10 +14,10 @@ let orders;
 			`
 				<tr onclick="openModal(${order.id})" class="clicky">
 					<td>${order.padded_id}</td>
-					<td>email address</td>
+					<td>${email}</td>
 					<td>${order.total_price}</td>
 					<td>${order.status}</td>
-					<td>notes here</td>
+					<td><input type="text" id="notes" placeholder="Notes"/></td>
 				</tr>
 			`,
 		);
@@ -50,7 +50,7 @@ async function openModal(orderId) {
 		<div>
 			Tracking number: ${order.tracking_number ?? 'Not yet shipped.'}
 		</div>
-		<form onsubmit="updateTracking(${orderId}); return false">
+    <form onsubmit="updateTracking(${orderId}); return false">
 			<input type="text" id="track" placeholder="Update tracking number">
 			<label for="track"></label>
 			<input type="submit" value="Change order status">
