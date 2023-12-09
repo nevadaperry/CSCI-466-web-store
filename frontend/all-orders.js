@@ -14,8 +14,10 @@ let orders;
 			`
 				<tr onclick="openModal(${order.id})" class="clicky">
 					<td>${order.padded_id}</td>
+					<td>email address</td>
 					<td>${order.total_price}</td>
 					<td>${order.status}</td>
+					<td>notes here</td>
 				</tr>
 			`,
 		);
