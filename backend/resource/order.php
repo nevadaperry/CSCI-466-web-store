@@ -186,7 +186,7 @@ function post_order($pdo, $order) {
 		$order['email']
 	]);
 	
-	// MariaDB 10.5 compatible replacement for json_table
+	// MariaDB 10.5 compatible replacement for json_table()
 	// Safe against SQL injection because user data is still parameterized
 	$line_item_values = [];
 	foreach ($order['line_items'] as $line_item) {
@@ -224,7 +224,7 @@ function post_order($pdo, $order) {
 			{$line_item_selects}
 		) AS line_item ON TRUE
 		JOIN product ON line_item.product_id = product.id
-	", line_item_values);
+	", $line_item_values);
 	
 	query_db($pdo, "
 		UPDATE product
@@ -232,7 +232,7 @@ function post_order($pdo, $order) {
 			{$line_item_selects}
 		) AS line_item ON line_item.product_id = product.id
 		SET product.stock = product.stock - line_item.quantity
-	", line_item_values);
+	", $line_item_values);
 	
 	$order_id = query_db($pdo, "
 		SELECT id FROM `order` ORDER BY id DESC LIMIT 1
