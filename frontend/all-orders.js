@@ -50,6 +50,11 @@ async function openModal(orderId) {
 		<div>
 			Tracking number: ${order.tracking_number ?? 'Not yet shipped.'}
 		</div>
+		<form onsubmit="updateTracking(${orderId}); return false">
+			<input type="text" id="track" placeholder="Update tracking number">
+			<label for="track"></label>
+			<input type="submit" value="Change order status">
+		</form>
 		<br>
 		<div>
 			Order total: $${order.total_price}
@@ -77,6 +82,12 @@ async function openModal(orderId) {
 		.add('done-loading');
 }
 
+async function updateTracking(orderId) {
+	const inputNumber = document.getElementById('track').value;
+	await api.addTrackingNumber(orderId, inputNumber);
+	window.location.reload();
+}
+
 // Courtesy of https://www.w3schools.com/howto/howto_css_modals.asp
 const detailsModal = document.getElementById('details-modal');
 window.onclick = event => {
@@ -89,3 +100,4 @@ document.addEventListener('keydown', (event) => {
 		detailsModal.style.display = 'none';
 	}
 })
+
