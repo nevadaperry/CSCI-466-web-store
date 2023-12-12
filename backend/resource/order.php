@@ -146,7 +146,7 @@ function get_order_details($pdo, $order_id) {
 }
 
 function post_order($pdo, $order) {
-	// pain
+	// INSERT CTEs cannot be chained in MySQL so this is the next best solution
 	$pdo->beginTransaction();
 	
 	query_db($pdo, "
@@ -248,16 +248,18 @@ function post_order($pdo, $order) {
 	return $order_id;
 }
 
-function add_order_tracking_number($pdo, $order_id, $tracking_number) {
-	return query_db($pdo, "
+function update_order_tracking_number($pdo, $order_id, $tracking_number) {
+	query_db($pdo, "
 		UPDATE `order`
-		SET tracking_number = ?, shipped_at = now()
-		WHERE id = ?
+		SET
+			tracking_number = ?,
+			shipped_at = coalesce(shipped_at, now())
+		WHERE id = ? AND shipped_at IS NULL
 	", [$tracking_number, $order_id]);
 }
 
 function add_order_note($pdo, $order_id, $note) {
-	return query_db($pdo, "
+	query_db($pdo, "
 		INSERT INTO order_note (order_id, content)
 		VALUES (?, ?)
 	", [$order_id, $note]);

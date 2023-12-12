@@ -84,7 +84,7 @@ async function openModal(orderId) {
 
 async function updateTracking(orderId) {
 	const inputNumber = document.getElementById('track').value;
-	await api.addTrackingNumber(orderId, inputNumber);
+	await api.updateTrackingNumber(orderId, inputNumber);
 	window.location.reload();
 }
 

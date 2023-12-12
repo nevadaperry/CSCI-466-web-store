@@ -5,7 +5,9 @@ let orders;
 		window.location = 'login.html?returnTo=outstanding-orders.html'
 		throw new Error('Not logged in! Please go back and log in first.');
 	}
-	orders = await api.getOrders(email);
+	orders = (await api.getOrders()).filter(
+		order => !order.shipped_at
+	);
 	for (const order of orders) {
 		order.status = (order.shipped_at) ? 'Shipped' : 'Processing';
 		order.padded_id = String(order.id).padStart(7, '0');
@@ -48,6 +50,11 @@ async function openModal(orderId) {
 		<div>
 			Tracking number: ${order.tracking_number ?? 'Not yet shipped.'}
 		</div>
+		<form onsubmit="updateTracking(${orderId}); return false">
+			<input type="text" id="track" placeholder="Update tracking number">
+			<label for="track"></label>
+			<input type="submit" value="Change order status">
+		</form>
 		<br>
 		<div>
 			Order total: $${order.total_price}
@@ -75,6 +82,12 @@ async function openModal(orderId) {
 		.add('done-loading');
 }
 
+async function updateTracking(orderId) {
+	const inputNumber = document.getElementById('track').value;
+	await api.updateTrackingNumber(orderId, inputNumber);
+	window.location.reload();
+}
+
 // Courtesy of https://www.w3schools.com/howto/howto_css_modals.asp
 const detailsModal = document.getElementById('details-modal');
 window.onclick = event => {
@@ -87,11 +100,3 @@ document.addEventListener('keydown', (event) => {
 		detailsModal.style.display = 'none';
 	}
 })
-
-async function addTrackingNumber(orderId, trackingNumber) {
-	await api.addTrackingNumber(orderId, trackingNumber);
-}
-
-async function addNote(orderId, note) {
-	await api.addNote(orderId, note);
-}

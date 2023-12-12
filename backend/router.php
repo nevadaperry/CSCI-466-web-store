@@ -61,18 +61,20 @@ else if ("{$method} {$uri}" == 'POST /orders') {
 	print json_encode(post_order($pdo, json_decode($order, true)));
 }
 else if (preg_match(
-	'/^POST \/orders\/[0-9]+\/tracking-number$/',
+	'/^PUT \/orders\/[0-9]+\/tracking-number$/',
 	"{$method} {$uri}"
 )) {
 	$order_id = explode('/', $uri)[2];
-	print json_encode(get_order_details($pdo, $order_id, $note));
+	$tracking_number = file_get_contents('php://input');
+	update_order_tracking_number($pdo, $order_id, $tracking_number);
 }
 else if (preg_match(
 	'/^POST \/orders\/[0-9]+\/note$/',
 	"{$method} {$uri}"
 )) {
 	$order_id = explode('/', $uri)[2];
-	print json_encode(get_order_details($pdo, $order_id, $tracking_number));
+	$note = file_get_contents('php://input');
+	add_order_note($pdo, $order_id, $note);
 }
 else if ("{$method} {$uri}" == 'GET /smoothie') {
 	print 'Here is a smoothie';
