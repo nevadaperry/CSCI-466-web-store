@@ -16,7 +16,7 @@ const api = {
 		url: `${apiUrl}/products/${productId}`,
 	})).data,
 	setProductStock: async (productId, stock) => (await axios({
-		method: 'PUT',
+		method: 'POST',
 		url: `${apiUrl}/products/${productId}`,
 		data: stock,
 	})).data,
@@ -38,7 +38,7 @@ const api = {
 		data: order
 	})).data,
 	updateTrackingNumber: async (orderId, trackingNumber) => (await axios({
-		method: 'PUT',
+		method: 'POST',
 		url: `${apiUrl}/orders/${orderId}/tracking-number`,
 		data: trackingNumber,
 	})).data,

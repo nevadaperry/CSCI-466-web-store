@@ -32,7 +32,7 @@ else if (preg_match(
 	print json_encode(get_product_details($pdo, $product_id));
 }
 else if (preg_match(
-	'/^PUT \/products\/[0-9]+$/',
+	'/^POST \/products\/[0-9]+$/',
 	"{$method} {$uri}"
 )) {
 	$product_id = explode('/', $uri)[2];
@@ -61,7 +61,7 @@ else if ("{$method} {$uri}" == 'POST /orders') {
 	print json_encode(post_order($pdo, json_decode($order, true)));
 }
 else if (preg_match(
-	'/^PUT \/orders\/[0-9]+\/tracking-number$/',
+	'/^POST \/orders\/[0-9]+\/tracking-number$/',
 	"{$method} {$uri}"
 )) {
 	$order_id = explode('/', $uri)[2];

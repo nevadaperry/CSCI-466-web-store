@@ -38,7 +38,6 @@ async function openModal(orderId) {
 			return lineItem;
 		}
 	});
-	console.log(JSON.stringify(lineItems));
 	const modalLoadedContent = document.getElementById('modal-loaded-content');
 	modalLoadedContent.innerHTML = `
 		<div><h2>
