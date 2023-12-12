@@ -71,7 +71,7 @@
 	margin: auto;
 }
 
-.sub-header {
+.low-importance {
 	color: #999 !important;
 }
 
@@ -157,5 +157,5 @@ label {
 }
 
 .bottom-text {
-	margin-top: 200px;
+	margin-top: 0px;
 }

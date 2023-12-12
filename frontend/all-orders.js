@@ -14,10 +14,9 @@ let orders;
 			`
 				<tr onclick="openModal(${order.id})" class="clicky">
 					<td>${order.padded_id}</td>
-					<td>${order.email}</td>
+					<td>${order.customer_email}</td>
 					<td>${order.total_price}</td>
 					<td>${order.status}</td>
-					<td><input type="text" id="notes" placeholder="Notes"/></td>
 				</tr>
 			`,
 		);
@@ -40,27 +39,58 @@ async function openModal(orderId) {
 			return lineItem;
 		}
 	});
+	const notes = JSON.parse(order.notes).map(note => {
+		if (typeof note === 'string') {
+			return JSON.parse(note);
+		} else {
+			return note;
+		}
+	});
 	const modalLoadedContent = document.getElementById('modal-loaded-content');
 	modalLoadedContent.innerHTML = `
 		<div><h2>
 			Order #${order.padded_id}, placed at
-			${new Date(order.placed_at)}
+			${pdoTimestampToDate(order.placed_at)}
 		</h2></div>
-		<br>
-		<div>
-			Tracking number: ${order.tracking_number ?? 'Not yet shipped.'}
-		</div>
-		<form onsubmit="updateTracking(${orderId}); return false">
-			<input type="text" id="track" placeholder="Update tracking number">
-			<label for="track"></label>
-			<input type="submit" value="Change order status">
-		</form>
-		<br>
 		<div>
 			Order total: $${order.total_price}
 		</div>
 		<br>
-		<label for="order-line-items">Line items</label>
+		<div>
+			Tracking number: ${order.tracking_number ?? 'Not yet shipped.'}
+		</div>
+		<br>
+		<form onsubmit="updateTracking(${orderId}); return false">
+			<input type="text" id="track" placeholder="New tracking number">
+			<label for="track"></label>
+			<input type="submit" value="Update">
+		</form>
+		<br>
+		<h2>Order notes</h2>
+		${notes.length === 0 ? `
+			<div id="order-notes" class="low-importance">(None)</div>
+		` : `
+			<table id="order-notes">
+				<tr>
+					<td>Content</td>
+					<td>Added at</td>
+				</tr>
+				${notes.map(note => `
+					<tr>
+						<td>${note.content}</td>
+						<td>${pdoTimestampToDate(note.added_at)}</td>
+					</tr>
+				`).join('')}
+			</table>
+		`}
+		<br>
+		<form onsubmit="addNote(${orderId}); return false">
+			<input type="text" id="new-note" placeholder="New note">
+			<label for="new-note"></label>
+			<input type="submit" value="Add">
+		</form>
+		<br>
+		<h2>Line items</h2>
 		<table id="order-line-items">
 			<tr>
 				<th>Name</th>
@@ -73,7 +103,7 @@ async function openModal(orderId) {
 					<td>${lineItem.frozen_price}</td>
 					<td>${lineItem.quantity}</td>
 				</tr>
-			`)}
+			`).join('')}
 		</table>
 	`;
 	document
@@ -85,7 +115,13 @@ async function openModal(orderId) {
 async function updateTracking(orderId) {
 	const inputNumber = document.getElementById('track').value;
 	await api.updateTrackingNumber(orderId, inputNumber);
-	window.location.reload();
+	//window.location.reload();
+}
+
+async function addNote(orderId) {
+	const newNote = document.getElementById('new-note').value;
+	await api.addOrderNote(orderId, newNote);
+	//window.location.reload();
 }
 
 // Courtesy of https://www.w3schools.com/howto/howto_css_modals.asp

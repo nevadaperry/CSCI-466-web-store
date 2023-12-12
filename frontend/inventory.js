@@ -26,7 +26,7 @@ async function openModal(productId) {
 	modalLoadedContent.innerHTML = `
 		<div><h2>${productDetails.name}</h2></div>
 		<div>
-			<a href="index.html?productId=${productId}" class="sub-header">
+			<a href="index.html?productId=${productId}" class="low-importance">
 				View customer-facing page for this product
 			</a>
 		</div>

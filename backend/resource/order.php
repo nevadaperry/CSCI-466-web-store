@@ -254,7 +254,7 @@ function update_order_tracking_number($pdo, $order_id, $tracking_number) {
 		SET
 			tracking_number = ?,
 			shipped_at = coalesce(shipped_at, now())
-		WHERE id = ? AND shipped_at IS NULL
+		WHERE id = ?
 	", [$tracking_number, $order_id]);
 }
 

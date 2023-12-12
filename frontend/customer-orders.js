@@ -43,19 +43,18 @@ async function openModal(orderId) {
 	modalLoadedContent.innerHTML = `
 		<div><h2>
 			Order #${order.padded_id}, placed at
-			${new Date(order.placed_at)}
+			${pdoTimestampToDate(order.placed_at)}
 		</h2></div>
+		<div>
+			Order total: $${order.total_price}
+		</div>
 		<br>
 		<div>
 			Tracking number: ${order.tracking_number ?? 'Not yet shipped.'}
 		</div>
 		<br>
-		<div>
-			Order total: $${order.total_price}
-		</div>
-		<br>
-		<label for="order-line-items">Line items</label>
-		<table id="order-line-items">
+		<h2>Line items</h2>
+		<table>
 			<tr>
 				<th>Name</th>
 				<th>Price</th>
@@ -67,7 +66,7 @@ async function openModal(orderId) {
 					<td>${lineItem.frozen_price}</td>
 					<td>${lineItem.quantity}</td>
 				</tr>
-			`)}
+			`).join('')}
 		</table>
 	`;
 	document

@@ -66,3 +66,15 @@ window.onerror = (message, source, lineNumber, colno, error) => {
 		</span>`,
 	);
 };
+
+function pdoTimestampToDate(pdoTimestamp) {
+	if (
+		!/^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}/
+		.test(pdoTimestamp)
+	) {
+		throw new Error(`Unexpected PDO timestamp format ${pdoTimestamp}`);
+	}
+	pdoTimestamp[10] = 'T';
+	pdoTimestamp += 'Z';
+	return new Date(pdoTimestamp);
+}

@@ -8,7 +8,7 @@ document.getElementById('main-navbar').innerHTML = `
 			<span class="vert-top">Cart</span>
 			<img src="img/shopping-cart-light.png">
 		</a>
-		<span id="login-status" class="sub-header">Loading login status</span>
+		<span id="login-status" class="low-importance">Loading login status</span>
 	</div>
 `;
 
