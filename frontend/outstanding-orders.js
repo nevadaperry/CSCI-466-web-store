@@ -27,6 +27,22 @@ let orders;
 		.getElementById('orders-placeholder')
 		.classList
 		.add('done-loading');
+	
+	const urlParams = new URLSearchParams(window.location.search);
+	const orderId = +urlParams.get('orderId');
+	if (orderId) {
+		openModal(orderId);
+		
+		// Strip param from URL so the modal doesn't re-open on refresh
+		(window
+			.history
+			.replaceState(
+				{},
+				document.title,
+				"outstanding-orders.html"
+			)
+		);
+	}
 })();
 
 async function openModal(orderId) {
@@ -117,13 +133,13 @@ async function openModal(orderId) {
 async function updateTracking(orderId) {
 	const inputNumber = document.getElementById('track').value;
 	await api.updateTrackingNumber(orderId, inputNumber);
-	//window.location.reload();
+	window.location = `all-orders.html?orderId=${orderId}`;
 }
 
 async function addNote(orderId) {
 	const newNote = document.getElementById('new-note').value;
 	await api.addOrderNote(orderId, newNote);
-	//window.location.reload();
+	window.location = `outstanding-orders.html?orderId=${orderId}`;
 }
 
 // Courtesy of https://www.w3schools.com/howto/howto_css_modals.asp
