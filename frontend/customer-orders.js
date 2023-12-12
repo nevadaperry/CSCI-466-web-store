@@ -67,6 +67,11 @@ async function openModal(orderId) {
 				</tr>
 			`).join('')}
 		</table>
+		<h2>More details</h2>
+		<pre>${(() => {
+			const { id, line_items, notes, ...rest } = order;
+			return JSON.stringify(rest, null, 2);
+		})()}</pre>
 	`;
 	document
 		.getElementById('modal-content-placeholder')

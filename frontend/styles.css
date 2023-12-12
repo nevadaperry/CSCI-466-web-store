@@ -159,3 +159,7 @@ label {
 .bottom-text {
 	margin-top: 0px;
 }
+
+pre {
+	white-space: pre-wrap;
+}
