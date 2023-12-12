@@ -6,8 +6,8 @@ function list_orders($pdo) {
 	return query_db($pdo, "
 		SELECT
 			o.id,
-			c.id,
-			c.email,
+			c.id AS customer_id,
+			c.email AS customer_email,
 			o.placed_at,
 			o.shipping_address,
 			o.name_on_card,
